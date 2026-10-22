@@ -1,4 +1,4 @@
-# DeepSeek V4.1 Flash 1017 · A100 / SM80
+# deepseek-v4.1-flash-1017-a100-deepinfer
 
 A100/SM80 deployment sources with the official DeepSeek recipe protocol, reproducible acceptance scripts, and reported 8-GPU benchmark results.
 
@@ -74,8 +74,8 @@ sha256:a63405a72ce202bb8347f17fc2432be0df484b794fba0224fd210b6daff004f6
 本地具备 `manifests/runtime.env` 对应的已验收 R3 运行镜像时：
 
 ```bash
-git clone https://github.com/keplerzip/deepseek-v41-flash-sm80.git
-cd deepseek-v41-flash-sm80
+git clone https://github.com/keplerzip/deepseek-v4.1-flash-1017-a100-deepinfer.git
+cd deepseek-v4.1-flash-1017-a100-deepinfer
 
 # 验证仓库文件、镜像身份并执行离线 CPU 检查。
 bash install.sh
