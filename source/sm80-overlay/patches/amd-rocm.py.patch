@@ -1,0 +1,207 @@
+--- a/vllm/models/deepseek_v4_1/amd/rocm.py
++++ b/vllm/models/deepseek_v4_1/amd/rocm.py
+@@ -166,7 +166,7 @@
+         tl.store(combined_lens_ptr + token_idx, topk_len + swa_len)
+ 
+ 
+-def combine_topk_swa_indices(
++def _deepinfer_combine_topk_swa_indices_torch_reference(
+     topk_indices: torch.Tensor,
+     query_start_loc: torch.Tensor,
+     seq_lens: torch.Tensor,
+@@ -254,6 +254,195 @@
+     flat_dst = rows[swa_mask] * combined_topk + swa_columns[swa_mask]
+     combined_indices.view(-1).index_copy_(0, flat_dst, swa_values[swa_mask])
+     combined_lens.copy_((topk_lens + swa_lens).to(torch.int32))
++    return combined_indices, combined_lens
++
++
++@triton.jit
++def _deepinfer_combine_topk_swa_indices_kernel(
++    combined_indices_ptr,
++    combined_indices_stride,
++    combined_lens_ptr,
++    topk_indices_ptr,
++    topk_indices_stride,
++    query_start_loc_ptr,
++    seq_lens_ptr,
++    gather_lens_ptr,
++    M,
++    N,
++    num_tokens,
++    num_reqs,
++    TOP_K: tl.constexpr,
++    COMPRESS_RATIO: tl.constexpr,
++    WINDOW_SIZE: tl.constexpr,
++    TOPK_WIDTH: tl.constexpr,
++    PADDED_TOP_K: tl.constexpr,
++    COMBINED_TOPK: tl.constexpr,
++):
++    batch_idx = tl.program_id(0)
++    worker_id = tl.program_id(1)
++    num_workers = tl.num_programs(1)
++
++    base = tl.load(query_start_loc_ptr)
++    query_start = tl.maximum(tl.load(query_start_loc_ptr + batch_idx) - base, 0)
++    query_end = tl.minimum(
++        tl.load(query_start_loc_ptr + batch_idx + 1) - base, num_tokens
++    )
++    query_len = tl.load(query_start_loc_ptr + batch_idx + 1) - tl.load(
++        query_start_loc_ptr + batch_idx
++    )
++    seq_len = tl.load(seq_lens_ptr + batch_idx)
++    gather_len = tl.load(gather_lens_ptr + batch_idx)
++    start_pos = seq_len - query_len
++    gather_start = seq_len - gather_len
++
++    for token_idx in range(query_start + worker_id, query_end, num_workers):
++        token_idx_in_query = token_idx - query_start
++        pos = start_pos + token_idx_in_query
++
++        if COMPRESS_RATIO > 0:
++            topk_len = tl.minimum((pos + 1) // COMPRESS_RATIO, TOP_K)
++            topk_len = tl.maximum(topk_len, 0)
++        else:
++            topk_len = 0
++
++        swa_len = tl.minimum(pos + 1, WINDOW_SIZE)
++        swa_len = tl.maximum(swa_len, 0)
++        combined_len = topk_len + swa_len
++
++        row_ptr = combined_indices_ptr + token_idx * combined_indices_stride
++
++        # 1. Disjoint range [0, topk_len)
++        if TOP_K > 0:
++            topk_offset = tl.arange(0, PADDED_TOP_K)
++            topk_mask = (topk_offset < topk_len) & (topk_offset < TOPK_WIDTH)
++            topk_vals = tl.load(
++                topk_indices_ptr + token_idx * topk_indices_stride + topk_offset,
++                mask=topk_mask,
++                other=-1,
++            )
++            valid_topk = topk_mask & (topk_vals >= 0) & (topk_vals < N)
++            out_topk = tl.where(valid_topk, topk_vals + M * batch_idx, -1)
++            tl.store(
++                row_ptr + topk_offset,
++                out_topk,
++                mask=topk_mask,
++            )
++
++        # 2. Disjoint range [topk_len, topk_len + swa_len)
++        swa_offset = tl.arange(0, WINDOW_SIZE)
++        swa_mask = swa_offset < swa_len
++        swa_vals = M * batch_idx + N + swa_offset + pos - swa_len + 1 - gather_start
++        tl.store(
++            row_ptr + topk_len + swa_offset,
++            swa_vals,
++            mask=swa_mask,
++        )
++
++        # 3. Disjoint range [combined_len, COMBINED_TOPK)
++        for c_start in tl.static_range(0, COMBINED_TOPK, 256):
++            c_offs = c_start + tl.arange(0, 256)
++            pad_mask = (c_offs >= combined_len) & (c_offs < COMBINED_TOPK)
++            tl.store(row_ptr + c_offs, -1, mask=pad_mask)
++
++        tl.store(combined_lens_ptr + token_idx, combined_len)
++
++    # Zero any trailing padding tokens beyond query_start_loc[num_reqs]
++    if batch_idx == 0:
++        total_q = tl.maximum(tl.load(query_start_loc_ptr + num_reqs) - base, 0)
++        for token_idx in range(total_q + worker_id, num_tokens, num_workers):
++            row_ptr = combined_indices_ptr + token_idx * combined_indices_stride
++            for c_start in tl.static_range(0, COMBINED_TOPK, 256):
++                c_offs = c_start + tl.arange(0, 256)
++                tl.store(row_ptr + c_offs, -1, mask=c_offs < COMBINED_TOPK)
++            tl.store(combined_lens_ptr + token_idx, 0)
++
++
++def combine_topk_swa_indices(
++    topk_indices: torch.Tensor,
++    query_start_loc: torch.Tensor,
++    seq_lens: torch.Tensor,
++    gather_lens: torch.Tensor,
++    window_size: int,
++    compress_ratio: int,
++    topk: int,
++    M: int,
++    N: int,
++) -> tuple[torch.Tensor, torch.Tensor]:
++    """Fused SM80 Triton kernel combining compressed-attention and SWA indices."""
++    if os.environ.get("VLLM_DSV41_DEEPINFER_FUSED_COMBINE", "0") != "1":
++        return _deepinfer_combine_topk_swa_indices_torch_reference(
++            topk_indices, query_start_loc, seq_lens, gather_lens,
++            window_size, compress_ratio, topk, M, N,
++        )
++    capability = current_platform.get_device_capability()
++    if not current_platform.is_cuda() or capability is None or capability.major != 8:
++        return _deepinfer_combine_topk_swa_indices_torch_reference(
++            topk_indices, query_start_loc, seq_lens, gather_lens,
++            window_size, compress_ratio, topk, M, N,
++        )
++    # This experiment covers the positive compression ratios used by the
++    # pinned R2 V4.1 prefill path. Keep other paths on their original policy.
++    if (compress_ratio <= 0 or window_size <= 0
++            or (window_size & (window_size - 1)) != 0):
++        return _deepinfer_combine_topk_swa_indices_torch_reference(
++            topk_indices, query_start_loc, seq_lens, gather_lens,
++            window_size, compress_ratio, topk, M, N,
++        )
++    num_tokens = topk_indices.shape[0]
++    if num_tokens:
++        topk_indices = topk_indices.reshape(num_tokens, -1).contiguous()
++    else:
++        topk_indices = topk_indices.reshape(0, topk_indices.shape[-1])
++    num_tokens = topk_indices.shape[0]
++    combined_topk = (
++        (topk + window_size + _SPARSE_PREFILL_TOPK_ALIGNMENT - 1)
++        // _SPARSE_PREFILL_TOPK_ALIGNMENT
++        * _SPARSE_PREFILL_TOPK_ALIGNMENT
++    )
++    num_reqs = seq_lens.shape[0]
++    if num_tokens == 0 or num_reqs == 0:
++        return (
++            torch.full(
++                (num_tokens, combined_topk),
++                fill_value=-1,
++                dtype=torch.int32,
++                device=topk_indices.device,
++            ),
++            torch.zeros(num_tokens, dtype=torch.int32, device=topk_indices.device),
++        )
++    combined_indices = torch.empty(
++        (num_tokens, combined_topk),
++        dtype=torch.int32,
++        device=topk_indices.device,
++    )
++    combined_lens = torch.empty(
++        num_tokens, dtype=torch.int32, device=topk_indices.device
++    )
++    logical_topk_width = min(topk, topk_indices.shape[1]) if topk > 0 else 0
++    padded_top_k = max(16, triton.next_power_of_2(max(1, logical_topk_width)))
++    num_workers = min(256, max(32, triton.next_power_of_2(num_tokens // num_reqs)))
++
++    _deepinfer_combine_topk_swa_indices_kernel[(num_reqs, num_workers)](
++        combined_indices,
++        combined_indices.stride(0),
++        combined_lens,
++        topk_indices,
++        topk_indices.stride(0),
++        query_start_loc,
++        seq_lens,
++        gather_lens,
++        M,
++        N,
++        num_tokens,
++        num_reqs,
++        TOP_K=logical_topk_width,
++        COMPRESS_RATIO=compress_ratio,
++        WINDOW_SIZE=window_size,
++        TOPK_WIDTH=max(1, logical_topk_width),
++        PADDED_TOP_K=padded_top_k,
++        COMBINED_TOPK=combined_topk,
++        num_warps=4,
++    )
+     return combined_indices, combined_lens
+ 
+ 

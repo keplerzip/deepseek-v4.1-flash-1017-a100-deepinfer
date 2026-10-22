@@ -1,0 +1,13 @@
+--- r2/vllm/models/deepseek_v4_1/common/ops/cache_utils.py
++++ beta/vllm/models/deepseek_v4_1/common/ops/cache_utils.py
+@@ -314,7 +314,9 @@
+             mask=fp8_mask,
+             other=127,
+         )
+-        scale = tl.exp2(encoded_scale.to(tl.float32) - 127.0)
++        bits = encoded_scale.to(tl.int32) << 23
++        bits = tl.where(encoded_scale == 0, 1 << 22, bits)
++        scale = bits.to(tl.float32, bitcast=True)
+ 
+         tl.store(
+             output_row_ptr + fp8_offsets,

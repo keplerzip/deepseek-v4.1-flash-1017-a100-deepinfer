@@ -1,0 +1,20 @@
+--- r2/vllm/models/deepseek_v4_1/nvidia/model.py
++++ beta/vllm/models/deepseek_v4_1/nvidia/model.py
+@@ -191,6 +191,7 @@
+         super().__init__()
+ 
+         config = vllm_config.model_config.hf_config
++        self.beta_layer_id = extract_layer_index(prefix)
+         self.hidden_size = config.hidden_size
+         self.use_sequence_parallel = _use_sequence_parallel(vllm_config)
+ 
+@@ -453,7 +454,8 @@
+                 norm_eps=self.ffn_norm.variance_epsilon,
+             )
+         )
+-        x = self.ffn(x, input_ids)
++        from vllm.models.deepseek_v4_1.beta_runtime import consumer_ffn
++        x = consumer_ffn(self, x, input_ids, positions)
+         return x, residual, post_mix, res_mix, ffn_pre, previous_aux
+ 
+ 

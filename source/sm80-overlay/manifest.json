@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "id": "deepinfer-sm80-selected-r2-experiment-v1",
+  "source": {
+    "repository": "https://github.com/HalfVulpes/Deepinfer-SM80",
+    "commit": "2a828fc2122b6fc59805c0c98b6aaf78e7da9b48",
+    "license": "Apache-2.0"
+  },
+  "base_image_id": "sha256:a63405a72ce202bb8347f17fc2432be0df484b794fba0224fd210b6daff004f6",
+  "default_enabled": false,
+  "gpu_validated": false,
+  "flags": {
+    "VLLM_DSV41_DEEPINFER_FUSED_COMBINE": "0",
+    "VLLM_DSV41_DEEPINFER_MHC_ALIGNED": "0"
+  },
+  "files": [
+    {
+      "path": "vllm/models/deepseek_v4_1/amd/rocm.py",
+      "base_sha256": "69fa464c390ad15c60cc364faddfcaf21a1760aec2069b1355486a4a42f81ea3",
+      "patched_sha256": "4bfe1fc981a1693953302fb047eb77813df562b6c44570ed76256adf8589d200",
+      "fragment": "fragments/rocm_combine.py",
+      "fragment_sha256": "0cc925e171e6e5061b550a141515ca46f9db3f3e182b9d8ef91d6ccd94d7281e",
+      "replacements": [
+        {
+          "original": "combine_topk_swa_indices",
+          "preserve_as": "_deepinfer_combine_topk_swa_indices_torch_reference",
+          "insert": [
+            "_deepinfer_combine_topk_swa_indices_kernel",
+            "combine_topk_swa_indices"
+          ]
+        }
+      ],
+      "review_patch": "patches/amd-rocm.py.patch",
+      "patch_sha256": "d8d66d7d223278ae9c1fa62b0762f78ef2278674818798f7967c7fc4cdec5039"
+    },
+    {
+      "path": "vllm/model_executor/kernels/mhc/dsv41_sm80.py",
+      "base_sha256": "a13a52573b1281ce972df7973dc624f8f1fd4171b9a94b26ba971da20270bd63",
+      "patched_sha256": "0bcedadededf101710d3b8178e84013db9e49c3a55a2ba767b16c8aeaaca16ac",
+      "fragment": "fragments/mhc_split.py",
+      "fragment_sha256": "7b3f70a4c1b338445bf6d3cfe5e3d9669db3e5b797ef88147e3090ec597550b7",
+      "replacements": [
+        {
+          "original": "mhc_fused_post_pre_split_config",
+          "insert": [
+            "mhc_fused_post_pre_split_config"
+          ]
+        }
+      ],
+      "review_patch": "patches/mhc-dsv41_sm80.py.patch",
+      "patch_sha256": "54ba7db3effbde7fcfc6f0548e606c238c9585fc9b636707f0c855b23f6e908f"
+    }
+  ],
+  "not_adopted": [
+    "Full upstream six-file replacement",
+    "nvidia/model.py PP/disk Engram changes",
+    "Sparse attention file replacement that drops R2 fused inverse RoPE, 8192-row fast scan and blocked prefill",
+    "UE8M0 cache conversion/LUT: edge-exponent semantics and actual SM80 benefit need separate review"
+  ],
+  "scope": "GPU compute candidate only. No tokenizer, reasoning, tool parser, HTTP, Responses bridge, weights or serving-profile change.",
+  "candidates": [
+    {
+      "id": "topk_swa",
+      "flag": "VLLM_DSV41_DEEPINFER_FUSED_COMBINE",
+      "target_path": "vllm/models/deepseek_v4_1/amd/rocm.py",
+      "target_module": "vllm.models.deepseek_v4_1.amd.rocm",
+      "function": "combine_topk_swa_indices",
+      "reference_function": "_deepinfer_combine_topk_swa_indices_torch_reference",
+      "kernel": "_deepinfer_combine_topk_swa_indices_kernel",
+      "patched_sha256": "4bfe1fc981a1693953302fb047eb77813df562b6c44570ed76256adf8589d200",
+      "patch_sha256": "d8d66d7d223278ae9c1fa62b0762f78ef2278674818798f7967c7fc4cdec5039",
+      "gpu_acceptance": "Compare int32 indices and lengths exactly against preserved Torch reference across production shapes, invalid top-k values, nonzero query bases, mixed request lengths and graph replay.",
+      "serving_enabled": false
+    },
+    {
+      "id": "mhc_aligned",
+      "flag": "VLLM_DSV41_DEEPINFER_MHC_ALIGNED",
+      "target_path": "vllm/model_executor/kernels/mhc/dsv41_sm80.py",
+      "target_module": "vllm.model_executor.kernels.mhc.dsv41_sm80",
+      "function": "mhc_fused_post_pre_split_config",
+      "compute_function": "mhc_fused_post_pre_delayed_tilelang",
+      "patched_sha256": "0bcedadededf101710d3b8178e84013db9e49c3a55a2ba767b16c8aeaaca16ac",
+      "patch_sha256": "54ba7db3effbde7fcfc6f0548e606c238c9585fc9b636707f0c855b23f6e908f",
+      "gpu_acceptance": "Numerical baseline A/B for T=1..16,H=5120,hc=4,pre_mix variants,norm and capture_aux; warmup and CUDA graph replay.",
+      "serving_enabled": false
+    }
+  ]
+}

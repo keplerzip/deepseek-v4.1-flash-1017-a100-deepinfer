@@ -1,0 +1,39 @@
+{
+  "release": "20261022-r3-cpukv",
+  "gpu_validated": false,
+  "default_enabled": true,
+  "yoco_ffn_default_enabled": false,
+  "approximate": [
+    "YOCO consumer FFN compaction outside per-request/checkpoint tails"
+  ],
+  "files": [
+    {
+      "path": "vllm/models/deepseek_v4_1/common/ops/cache_utils.py",
+      "base_sha256": "04abab8ceefe3ec134e6d7870273dcc31fff34469aedd5b8a2eaf6da9314a6fe",
+      "beta_sha256": "b2d7125664a62dc0b74b9f08f2e85cf33233e7da31577b9c2a14c300f724bf32",
+      "patch": "patches/vllm__models__deepseek_v4_1__common__ops__cache_utils.py.patch",
+      "patch_sha256": "cc3ced790c75a83ce1a2a380219e58fada9814755e0486c79aa426c45aa4e40e"
+    },
+    {
+      "path": "vllm/v1/attention/ops/rocm_aiter_mla_sparse.py",
+      "base_sha256": "875eaa80630f59d18c8378a78eec105ea096c4ef662b57828ddba6bef10420d4",
+      "beta_sha256": "b956fa0bf2bbd96608ffa1a60684295bca382416f4898a37e4eb7eb4a1046f83",
+      "patch": "patches/vllm__v1__attention__ops__rocm_aiter_mla_sparse.py.patch",
+      "patch_sha256": "dbd65f63550f5c5f3fc69716be9407e9158dd8d755badc44210544f937a7d3c0"
+    },
+    {
+      "path": "vllm/models/deepseek_v4_1/common/engram.py",
+      "base_sha256": "8faafb768972509b62b14354efa4c99feab3438c24336f9ba447db4840d2bb5d",
+      "beta_sha256": "5ffb1804d65201a3351a3d8a43edcd4209367acd5e37663e9f6b978c3b393a5a",
+      "patch": "patches/vllm__models__deepseek_v4_1__common__engram.py.patch",
+      "patch_sha256": "e6ee3196b2ad5d470f81e90b0fefd205ebba1dff75f2b54741097c05470c8399"
+    },
+    {
+      "path": "vllm/models/deepseek_v4_1/nvidia/model.py",
+      "base_sha256": "597d0d6c00bfcb8d1ab4f703de185d709236b9decf009f7628c502c4404576a9",
+      "beta_sha256": "1bffbfe9d945992a8764a8d41d7f909eb9945a3688441f04e05ae9a0f34cd3c0",
+      "patch": "patches/vllm__models__deepseek_v4_1__nvidia__model.py.patch",
+      "patch_sha256": "3c3da0e8247cc8b8fd1883dbe50c76fe3e8dc6282484d4629443279e710fe33b"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+DeepSeek V4.1 Flash 1017 A100 / SM80 deployment layer
+
+Deployment scripts and local adaptations are Apache-2.0 licensed; see LICENSE.
+This is an independent community project, with no DeepSeek or NVIDIA endorsement.
+It uses a pinned vLLM/SM80 runtime rather than the native official DeepInfer engine.
+
+Upstream vLLM / wtdcode/vllm-backport / lazymio SM80 adaptations:
+Apache-2.0; pinned base source a350766628514d597670d2a5217777fdee2ba7f4.
+https://github.com/vllm-project/vllm
+https://github.com/wtdcode/vllm-backport
+Original source notices are retained in vendor/r2-source, vendor/r2-beta-source
+and source/*-overlay. The inherited base image has its own notices/licenses.
+
+HalfVulpes/Deepinfer-SM80 reference kernels:
+Apache-2.0, commit 2a828fc2122b6fc59805c0c98b6aaf78e7da9b48.
+https://github.com/HalfVulpes/Deepinfer-SM80
+Vendored source, LICENSE and provenance are under vendor/sm80.
+Only reviewed local overlays are installed, not the full upstream tree.
+
+Official deepseek-ai/deepseek-recipe 0.2.0:
+MIT, Copyright (c) 2026 DeepSeek; commit 935817c66f5d6e64838f419692545f06787e485f.
+https://github.com/deepseek-ai/deepseek-recipe
+The upstream server-py/main.py is byte-identical. See vendor/official-recipe,
+vendor/RECIPE-LICENSE and vendor/RECIPE-THIRD-PARTY-LICENSES. The pinned wheel
+contains separately licensed native dependencies; their full notices are retained.
+
+DeepSeek model/tokenizer:
+MIT, Copyright (c) 2023 DeepSeek; see vendor/tokenizer/LICENSE and
+vendor/model-manifest.json. Model weights are not included.
+https://modelscope.cn/models/deepseek-ai/DeepSeek-V4.1-Flash-1017
+
+CUDA, NCCL, PyTorch, Triton, TileLang and other runtime dependencies retain their
+own licenses. The multi-gigabyte runtime images are not distributed in this repo.

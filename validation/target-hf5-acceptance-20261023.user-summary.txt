@@ -1,0 +1,20 @@
+完整验收状态：PASS
+[off]
+单请求解码中位数：144.99 token/s
+单请求首 token 中位数：0.26 秒
+C32 聚合吞吐：1489.48 token/s
+C32 请求耗时 P95：29.34 秒
+[high]
+单请求解码中位数：109.14 token/s
+单请求首 token 中位数：0.25 秒
+C32 聚合吞吐：1277.68 token/s
+C32 请求耗时 P95：31.18 秒
+性能诊断状态：PASS
+text/off 解码中位数 = 105.77 token/s 首 token = 0.26 秒 测量状态 = CLEAN
+text/high 解码中位数 = 104.15 token/s 首 token = 0.24 秒 测量状态 = CLEAN
+code/off 解码中位数 = 156.97 token/s 首 token = 0.25 秒 测量状态 = CLEAN
+code/high 解码中位数 = 119.55 token/s 首 token = 0.24 秒 测量状态 = CLEAN
+最终启动验收：PASS
+验收完成时间：2026-10-22T16:31:31.926947+00:00
+Ready: http://127.0.0.1:8005/v1
+{"object":"list","data":[{"id":"DeepSeek-Flash","object":"model","owned_by":"local"}]}

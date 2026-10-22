@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/deepseek-ai/deepseek-recipe",
+  "commit": "935817c66f5d6e64838f419692545f06787e485f",
+  "version": "0.2.0",
+  "server_path": "source/server-py/main.py",
+  "server_sha256": "07c3c12723a2ceabc07610122b88b3f5f6e8bf6b90173c1f49e884b63936748f",
+  "server_modified": false,
+  "integration": "create_app(infer=..., options=...), encoding special-token binding and tokenizer-aware native StreamProcessor",
+  "tool_constraint_enforcement": "official prompt only; no local DSML grammar"
+}

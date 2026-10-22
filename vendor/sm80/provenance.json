@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/HalfVulpes/Deepinfer-SM80",
+  "commit": "2a828fc2122b6fc59805c0c98b6aaf78e7da9b48",
+  "license": "Apache-2.0",
+  "retrieved_date": "2026-10-21",
+  "role": "Read-only review source; never overlay these six full files onto the runtime",
+  "files": [
+    {
+      "path": "upstream/Deepinfer-SM80/CITATION.cff",
+      "sha256": "cb6da7deb697c9e6bd05db390b880c712ee7bc6825cb0ab02f2becf3e03b9b68",
+      "source_url": "https://github.com/HalfVulpes/Deepinfer-SM80/blob/2a828fc2122b6fc59805c0c98b6aaf78e7da9b48/CITATION.cff"
+    },
+    {
+      "path": "upstream/Deepinfer-SM80/LICENSE",
+      "sha256": "f3357977b7158f313ef997042b269a889878fa4593eaed5b75edbdf62c8f0140",
+      "source_url": "https://github.com/HalfVulpes/Deepinfer-SM80/blob/2a828fc2122b6fc59805c0c98b6aaf78e7da9b48/LICENSE"
+    },
+    {
+      "path": "upstream/Deepinfer-SM80/README.md",
+      "sha256": "d16e1b9dafb4fa2109e215a0af4a0647abab6b0f36529079e293cbd294a7b524",
+      "source_url": "https://github.com/HalfVulpes/Deepinfer-SM80/blob/2a828fc2122b6fc59805c0c98b6aaf78e7da9b48/README.md"
+    },
+    {
+      "path": "upstream/Deepinfer-SM80/patches/vllm-sm80-deepinfer.patch",
+      "sha256": "9d5a614fa1414bf2802818c850a49cfe07720f506187836b09ba72e2c2f22106",
+      "source_url": "https://github.com/HalfVulpes/Deepinfer-SM80/blob/2a828fc2122b6fc59805c0c98b6aaf78e7da9b48/patches/vllm-sm80-deepinfer.patch"
+    },
+    {
+      "path": "upstream/Deepinfer-SM80/vllm_sm80_deepinfer/vllm/model_executor/kernels/mhc/tilelang.py",
+      "sha256": "5cecd2f0e858bbcba98a18539ea2cdd2da2f2f04ba21eb6e678202afbec5ceb0",
+      "source_url": "https://github.com/HalfVulpes/Deepinfer-SM80/blob/2a828fc2122b6fc59805c0c98b6aaf78e7da9b48/vllm_sm80_deepinfer/vllm/model_executor/kernels/mhc/tilelang.py"
+    },
+    {
+      "path": "upstream/Deepinfer-SM80/vllm_sm80_deepinfer/vllm/model_executor/kernels/mhc/warmup.py",
+      "sha256": "2a485e828d9bd6cac30e1f0a094c43335766cb0ccad2d22b3ab29d5d75cde78a",
+      "source_url": "https://github.com/HalfVulpes/Deepinfer-SM80/blob/2a828fc2122b6fc59805c0c98b6aaf78e7da9b48/vllm_sm80_deepinfer/vllm/model_executor/kernels/mhc/warmup.py"
+    },
+    {
+      "path": "upstream/Deepinfer-SM80/vllm_sm80_deepinfer/vllm/models/deepseek_v4_1/amd/rocm.py",
+      "sha256": "8415fa186ebab0327f9e5a40fd060a931f67b5c17a737b95ce203ccd5687af02",
+      "source_url": "https://github.com/HalfVulpes/Deepinfer-SM80/blob/2a828fc2122b6fc59805c0c98b6aaf78e7da9b48/vllm_sm80_deepinfer/vllm/models/deepseek_v4_1/amd/rocm.py"
+    },
+    {
+      "path": "upstream/Deepinfer-SM80/vllm_sm80_deepinfer/vllm/models/deepseek_v4_1/common/ops/cache_utils.py",
+      "sha256": "9ce0a62773bba9ac75eac6f73c0243b6bf7c391e05a77e7ae93ed9d266e7bea8",
+      "source_url": "https://github.com/HalfVulpes/Deepinfer-SM80/blob/2a828fc2122b6fc59805c0c98b6aaf78e7da9b48/vllm_sm80_deepinfer/vllm/models/deepseek_v4_1/common/ops/cache_utils.py"
+    },
+    {
+      "path": "upstream/Deepinfer-SM80/vllm_sm80_deepinfer/vllm/models/deepseek_v4_1/nvidia/model.py",
+      "sha256": "e1e4c1b05be11d087c25feae58d77c851229fa29faf6cdef7b70a675334e907c",
+      "source_url": "https://github.com/HalfVulpes/Deepinfer-SM80/blob/2a828fc2122b6fc59805c0c98b6aaf78e7da9b48/vllm_sm80_deepinfer/vllm/models/deepseek_v4_1/nvidia/model.py"
+    },
+    {
+      "path": "upstream/Deepinfer-SM80/vllm_sm80_deepinfer/vllm/v1/attention/ops/rocm_aiter_mla_sparse.py",
+      "sha256": "9d4e01c8328447a2425c514de940c05b61289a8efad22b41bc9fb817b07d4146",
+      "source_url": "https://github.com/HalfVulpes/Deepinfer-SM80/blob/2a828fc2122b6fc59805c0c98b6aaf78e7da9b48/vllm_sm80_deepinfer/vllm/v1/attention/ops/rocm_aiter_mla_sparse.py"
+    }
+  ]
+}

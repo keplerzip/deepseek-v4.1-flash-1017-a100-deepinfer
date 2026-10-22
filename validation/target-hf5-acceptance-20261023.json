@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "record_kind": "user_reported_target_gpu_acceptance",
+  "release": "DeepSeek-Flash-1017-A100 R3 + HF4 + HF5",
+  "status": "PASS",
+  "completed_at_utc": "2026-10-22T16:31:31.926947+00:00",
+  "completed_at_asia_shanghai": "2026-10-23T00:31:31.926947+08:00",
+  "source": {
+    "kind": "User-pasted result summary and local API response in this conversation",
+    "summary_path": "validation/target-hf5-acceptance-20261023.user-summary.txt",
+    "summary_sha256": "df5bdda35903bd0b92156d895b1c3716f31e900a8e481305645fdb38d446e670",
+    "raw_target_reports_independently_retrieved": false,
+    "summary_whitespace_normalized": true,
+    "public_redactions": [
+      "target hostname",
+      "target installation path",
+      "local build-workspace path"
+    ]
+  },
+  "deployment_context": {
+    "hardware": "8 x A100 80 GiB / SM80",
+    "tensor_parallel_size": 8,
+    "expert_parallel_size": 8,
+    "data_parallel_size": 1,
+    "max_num_seqs": 32,
+    "max_model_len": 524288,
+    "gpu_memory_utilization": 0.95,
+    "cpu_kv_gib_total": 0,
+    "cpu_kv_offloading_enabled": false,
+    "gpu_prefix_caching_enabled": true,
+    "engram_embedding_cpu_offload_enabled": true,
+    "kv_cache_dtype": "fp8_ds_mla",
+    "speculative_method": "dspark",
+    "num_speculative_tokens": 5,
+    "approximate_yoco_ffn_enabled": false,
+    "tool_protocol": "DS official deepseek-recipe server",
+    "port": 8005,
+    "configuration_source": "Established HF4/HF5 settings and startup procedure; target effective-config.json was not included in this pasted summary"
+  },
+  "acceptance": {
+    "full_acceptance": "PASS",
+    "speed_diagnosis": "PASS",
+    "startup_acceptance": "PASS",
+    "ready_line": "Ready: http://127.0.0.1:8005/v1",
+    "local_models_endpoint_response": {
+      "object": "list",
+      "data": [
+        {
+          "id": "DeepSeek-Flash",
+          "object": "model",
+          "owned_by": "local"
+        }
+      ]
+    },
+    "actual_app_gateway": "NOT_RUN",
+    "long_context_actual_prompt_tokens": null
+  },
+  "benchmarks": {
+    "off": {
+      "single_decode_tokens_per_second_median": 144.99,
+      "single_ttft_seconds_median": 0.26,
+      "c32_aggregate_tokens_per_second": 1489.48,
+      "c32_latency_p95_seconds": 29.34
+    },
+    "high": {
+      "single_decode_tokens_per_second_median": 109.14,
+      "single_ttft_seconds_median": 0.25,
+      "c32_aggregate_tokens_per_second": 1277.68,
+      "c32_latency_p95_seconds": 31.18
+    }
+  },
+  "diagnosis_summary": {
+    "text/off": {
+      "decode_tps_median": 105.77,
+      "ttft_seconds_median": 0.26,
+      "measurement_status": "CLEAN"
+    },
+    "text/high": {
+      "decode_tps_median": 104.15,
+      "ttft_seconds_median": 0.24,
+      "measurement_status": "CLEAN"
+    },
+    "code/off": {
+      "decode_tps_median": 156.97,
+      "ttft_seconds_median": 0.25,
+      "measurement_status": "CLEAN"
+    },
+    "code/high": {
+      "decode_tps_median": 119.55,
+      "ttft_seconds_median": 0.24,
+      "measurement_status": "CLEAN"
+    }
+  },
+  "measurement_parameters_from_shipped_startup": {
+    "benchmark_modes": [
+      "off",
+      "high"
+    ],
+    "benchmark_warmups_per_mode": 2,
+    "benchmark_single_samples_per_mode": 10,
+    "benchmark_c32_requests_per_mode": 128,
+    "output_tokens_per_request": 1024,
+    "diagnosis_warmups_per_case": 2,
+    "diagnosis_samples_per_case": 10
+  },
+  "measurement_scope": [
+    "C32 throughput is aggregate across concurrent requests, not individual request speed.",
+    "Results are workload-specific medians; full benchmark and text/code diagnosis use different prompts.",
+    "Decoder timings use client receipt of token-bearing batches aligned with native engine token evidence; they are not GPU kernel timings.",
+    "Full/startup PASS includes long-context checks under the shipped gates; the pasted summary does not include exact long-context input token counts.",
+    "This record does not establish 32 simultaneous full 512K KV windows or a strict prior-version A/B speedup."
+  ],
+  "hf5_archive": {
+    "name": "DeepSeek-Flash-1017-A100-DeepInfer-20261022-R3-HF5-Benchmark-runtime-update.tar.gz",
+    "sha256": "cd4dadec9b39f4c0567560ae82e2a06f92755990e1496902f206ad7f2990c6b8"
+  },
+  "target_report_locations": [
+    "runtime/full-acceptance.json",
+    "runtime/speed-diagnosis.json",
+    "runtime/release-profile.json",
+    "runtime/c32-acceptance.json",
+    "runtime/long-context-acceptance.json"
+  ]
+}

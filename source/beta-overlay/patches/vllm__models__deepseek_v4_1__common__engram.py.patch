@@ -1,0 +1,36 @@
+--- r2/vllm/models/deepseek_v4_1/common/engram.py
++++ beta/vllm/models/deepseek_v4_1/common/engram.py
+@@ -899,6 +899,10 @@
+         prefix: str,
+     ) -> None:
+         super().__init__()
++        import os
++        self.beta_prefetch = os.environ.get('DEEPINFER_BETA_ENGRAM_PREFETCH', '1') == '1'
++        self.beta_stream = torch.cuda.Stream() if self.beta_prefetch else None
++        self.beta_ready = torch.cuda.Event() if self.beta_prefetch else None
+         self.layer_hash_index = layer_hash_index
+         self.dim = config.hidden_size
+         self.hc_mult = config.hc_mult
+@@ -944,11 +948,20 @@
+         )
+ 
+     def prepare_embeddings(self, hash_ids: torch.Tensor) -> None:
+-        """Gather this layer's rows on the main stream before decoder layers."""
+-        self.embed_tokens.lookup(hash_ids, self.staged_rows[: hash_ids.shape[0]])
++        """Side-stream lookup; join only when this layer consumes its rows."""
++        if not self.beta_prefetch:
++            self.embed_tokens.lookup(hash_ids, self.staged_rows[: hash_ids.shape[0]])
++            return
++        current = torch.cuda.current_stream()
++        self.beta_stream.wait_stream(current)
++        with torch.cuda.stream(self.beta_stream):
++            self.embed_tokens.lookup(hash_ids, self.staged_rows[: hash_ids.shape[0]], background=True)
++            self.beta_ready.record(self.beta_stream)
+ 
+     def embed(self, hash_ids: torch.Tensor) -> torch.Tensor:
+         """Gather heads, returning only local tokens when SP is enabled."""
++        if self.beta_prefetch:
++            torch.cuda.current_stream().wait_event(self.beta_ready)
+         rows = self.staged_rows[: hash_ids.shape[0]]
+         if self.embed_tokens.tp_size == 1:
+             return rows

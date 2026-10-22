@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "scope": "Public-source checks in the pre-existing pinned runtime, no GPU/model or throughput remeasurement",
+  "cpu_tests": 160,
+  "main_cpu_tests": 153,
+  "overlay_cpu_tests": 7,
+  "public_install_regressions": 2,
+  "original_hf5_cpu_tests": 158,
+  "gpu_model_remeasured_for_public_snapshot": false,
+  "target_performance_record": "target-hf5-acceptance-20261023.json",
+  "large_runtime_images_included": false,
+  "model_weights_included": false,
+  "source_snapshot": "HF5 runtime sources, sanitized benchmark records and publication-only packaging changes"
+}

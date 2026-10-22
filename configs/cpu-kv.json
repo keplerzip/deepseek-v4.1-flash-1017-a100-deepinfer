@@ -1,0 +1,9 @@
+{
+  "target_gib": 768,
+  "reserve_available_gib": 500,
+  "engine_startup_headroom_gib": 384,
+  "allocation_overhead_gib": 16,
+  "shm_headroom_gib": 1,
+  "rounding_gib": 16,
+  "eviction_policy": "arc"
+}

@@ -1,0 +1,66 @@
+{
+  "model": "/models/DeepSeek-V4.1-Flash-1017",
+  "served_model_name": "DeepSeek-Flash",
+  "tensor_parallel_size": 8,
+  "data_parallel_size": 1,
+  "enable_expert_parallel": true,
+  "all2all_backend": "allgather_reducescatter",
+  "enable_eplb": true,
+  "eplb_config": {
+    "window_size": 1000,
+    "step_interval": 3000,
+    "num_redundant_experts": 0,
+    "use_async": true,
+    "log_balancedness": true,
+    "log_balancedness_interval": 500
+  },
+  "pipeline_parallel_size": 1,
+  "max_model_len": 524288,
+  "max_num_seqs": 32,
+  "max_num_batched_tokens": 8192,
+  "gpu_memory_utilization": 0.95,
+  "kv_cache_dtype": "fp8_ds_mla",
+  "engram_config": {
+    "cpu_offload": true
+  },
+  "enable_prefix_caching": true,
+  "enable_prompt_tokens_details": true,
+  "tokenizer_mode": "deepseek_v41",
+  "tool_call_parser": "deepseek_v41",
+  "reasoning_parser": "deepseek_v41",
+  "enable_auto_tool_choice": true,
+  "disable_custom_all_reduce": true,
+  "limit_mm_per_prompt": {
+    "image": 999
+  },
+  "generation_config": "vllm",
+  "enable_chunked_prefill": true,
+  "disable_chunked_mm_input": true,
+  "speculative_config": {
+    "method": "dspark",
+    "num_speculative_tokens": 5,
+    "draft_sample_method": "greedy",
+    "rejection_sample_method": "standard",
+    "use_local_argmax_reduction": true,
+    "enable_adaptive_verification": false
+  },
+  "compilation_config": {
+    "mode": 0,
+    "cudagraph_mode": "FULL_DECODE_ONLY",
+    "cudagraph_capture_sizes": [
+      5,
+      6,
+      10,
+      12,
+      20,
+      24,
+      40,
+      48,
+      80,
+      96,
+      160,
+      192
+    ],
+    "max_cudagraph_capture_size": 192
+  }
+}
