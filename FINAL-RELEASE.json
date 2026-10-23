@@ -1,0 +1,28 @@
+{
+  "status": "FINAL",
+  "release": "R3-HF5-FINAL",
+  "frozen_on_asia_shanghai": "2026-10-24",
+  "based_on_public_commit": "12caec0afb384426cbe7c16d729f7af4a1cc9365",
+  "scope": "Freeze the existing accepted runtime; no new inference, scheduler, or KV-offloading changes. Existing public-source installer and licensing corrections are retained.",
+  "runtime_image_tag": "deepseek-v4.1-flash-1017-a100-deepinfer:20261022-r3-cpukv",
+  "runtime_image_id": "sha256:21827cf6e4160ec9eab4bcf51101fe636841c65e78435c389aade657a4dcd91c",
+  "runtime_config_sha256": "e977ce33d070ee048ea0dd029142a846eb4681711e6607069113a8c83a39d130",
+  "accepted_target_record": "validation/target-hf5-acceptance-20261023.json",
+  "accepted_target_completed_at_utc": "2026-10-22T16:31:31.926947+00:00",
+  "configuration": {
+    "gpu_memory_utilization": 0.95,
+    "cpu_kv_gib_total": 0,
+    "gpu_prefix_caching": true,
+    "engram_parameter_cpu_offload": true,
+    "max_num_seqs": 32,
+    "max_model_len": 524288,
+    "max_num_batched_tokens": 8192,
+    "dspark_k": 5,
+    "approximate_yoco_ffn": false,
+    "port": 8005,
+    "tool_protocol": "official deepseek-recipe 0.2.0"
+  },
+  "offline_runtime_package": "DeepSeek-Flash-1017-A100-DeepInfer-20261024-R3-HF5-FINAL-runtime.tar.gz",
+  "model_weights_included": false,
+  "cpu_kv_tier_and_prefill_scheduler_research": "not implemented in this final release"
+}

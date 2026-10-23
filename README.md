@@ -1,5 +1,7 @@
 # deepseek-v4.1-flash-1017-a100-deepinfer
 
+> **FINAL：R3 + HF5，2026-10-24 冻结。** 沿用已通过验收的部署与性能配置，CPU KV 二级缓存关闭；本次未加入后续讨论的缓存或调度实验。版本信息见 [FINAL-RELEASE.json](FINAL-RELEASE.json)。
+
 A100/SM80 deployment sources with the official DeepSeek recipe protocol, reproducible acceptance scripts, and reported 8-GPU benchmark results.
 
 面向 **8 × NVIDIA A100 80 GiB（SM80）** 的 DeepSeek V4.1 Flash 1017 部署与适配项目。推理引擎基于固定版本的 **vLLM/SM80**，选择性采用 Deepinfer-SM80 的优化；HTTP 协议、工具转换和流式解析使用 DS 官方 **deepseek-recipe 0.2.0**。
