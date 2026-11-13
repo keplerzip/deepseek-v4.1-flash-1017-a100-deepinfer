@@ -1,0 +1,27 @@
+W1113 05:28:27.389000 1 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1113 05:28:27.390000 1 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1113 05:28:27.390000 1 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W1113 05:28:30.085000 1 torch/utils/cpp_extension.py:183] No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+Failed to import from vllm._C: ModuleNotFoundError("No module named 'vllm._C'")
+test_bad_pinned_source_fails_before_stopping (test_r8_hf2.HotfixTests.test_bad_pinned_source_fails_before_stopping) ... ok
+test_config_is_changed_and_really_bound_to_engine (test_r8_hf2.HotfixTests.test_config_is_changed_and_really_bound_to_engine) ... ok
+test_foreign_container_is_untouched_and_config_not_changed (test_r8_hf2.HotfixTests.test_foreign_container_is_untouched_and_config_not_changed) ... ok
+test_reapply_does_not_duplicate_mount (test_r8_hf2.HotfixTests.test_reapply_does_not_duplicate_mount) ... ok
+test_restart_handles_missing_frontend_and_retains_r7 (test_r8_hf2.HotfixTests.test_restart_handles_missing_frontend_and_retains_r7) ... ok
+test_unknown_launcher_fails_before_stopping (test_r8_hf2.HotfixTests.test_unknown_launcher_fails_before_stopping) ... ok
+test_ampere_builder_rejects_wrong_device (test_r8_hf2_metadata.MetadataTests.test_ampere_builder_rejects_wrong_device) ... ok
+test_ampere_rejects_fp8_cache (test_r8_hf2_metadata.MetadataTests.test_ampere_rejects_fp8_cache) ... ok
+test_full_ampere_constructor_completes_for_cache_ratios (test_r8_hf2_metadata.MetadataTests.test_full_ampere_constructor_completes_for_cache_ratios) ... ok
+test_original_parent_dispatch_reproduces_reported_failure (test_r8_hf2_metadata.MetadataTests.test_original_parent_dispatch_reproduces_reported_failure) ... ok
+test_stock_builder_still_uses_stock_guard (test_r8_hf2_metadata.MetadataTests.test_stock_builder_still_uses_stock_guard) ... ok
+test_stock_guard_still_rejects_other_unsupported_gpus (test_r8_hf2_metadata.MetadataTests.test_stock_guard_still_rejects_other_unsupported_gpus) ... ok
+test_busy_port_does_not_launch_or_stop_containers (test_r8_workflow.R8WorkflowTests.test_busy_port_does_not_launch_or_stop_containers) ... ok
+test_performance_keeps_api_and_skips_gpu_operator_clients (test_r8_workflow.R8WorkflowTests.test_performance_keeps_api_and_skips_gpu_operator_clients) ... ok
+test_stable_running_is_untouched (test_r8_workflow.R8WorkflowTests.test_stable_running_is_untouched) ... ok
+test_start_publishes_after_health_without_test_gates (test_r8_workflow.R8WorkflowTests.test_start_publishes_after_health_without_test_gates) ... ok
+test_stop_only_removes_owned_r8_containers (test_r8_workflow.R8WorkflowTests.test_stop_only_removes_owned_r8_containers) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 2.157s
+
+OK

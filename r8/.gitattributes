@@ -1,0 +1,4 @@
+# Preserve byte-exact upstream files and SHA256SUMS on every platform.
+* -text
+*.whl binary
+vendor/** linguist-vendored

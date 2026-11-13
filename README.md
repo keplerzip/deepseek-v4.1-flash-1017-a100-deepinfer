@@ -1,6 +1,8 @@
 # deepseek-v4.1-flash-1017-a100-deepinfer
 
-> **FINAL：R3 + HF5，2026-10-24 冻结。** 沿用已通过验收的部署与性能配置，CPU KV 二级缓存关闭；本次未加入后续讨论的缓存或调度实验。版本信息见 [FINAL-RELEASE.json](FINAL-RELEASE.json)。
+> **最新公开快照：R8 + HF2，2026-11-13 冻结。** [R8 源码与部署说明](r8/README.md) · [性能记录](docs/r8-hf2-performance-20261113.md) · [致谢](ACKNOWLEDGMENTS.md)。本轮整体/benchmark 为 **FAIL**，diagnosis 为 **CONTAMINATED**；下面公开有污染的观测值，保留原始状态。
+>
+> **R3 + HF5 FINAL** 继续保留在仓库根目录，冻结日期 2026-10-24；已通过验收的历史配置见 [FINAL-RELEASE.json](FINAL-RELEASE.json)。R8 位于独立 `r8/` 目录。
 
 A100/SM80 deployment sources with the official DeepSeek recipe protocol, reproducible acceptance scripts, and reported 8-GPU benchmark results.
 
@@ -8,7 +10,29 @@ A100/SM80 deployment sources with the official DeepSeek recipe protocol, reprodu
 
 这是独立社区适配项目，未整体替换为官方原生 DeepInfer 引擎。仓库提供运行层源码、覆盖层、固定构建依赖和验收方法；模型权重及大型运行镜像由使用者自行准备。
 
-## 已验收配置
+## R8 HF2 最新性能快照
+
+R8 的主要 SM80 计算适配来自 [Yaoyao Ding / yaoyaoding](https://github.com/yaoyaoding) 的 [vLLM PR #66497](https://github.com/vllm-project/vllm/pull/66497)，固定提交 `d423120cdc36d4cf8456f43ddfcc654b0c69c5ea`。本项目保留 1017、8005、官方 recipe 工具协议与 512K 配置上限，并集成 HF1/HF2 启动兼容性修复。R8 使用 TP8 / PP1 / DP1、EP 关闭、GPU 预算 **0.94**，详见 [冻结状态](r8/FINAL-RELEASE.json)。
+
+**以下为部署者回传的有污染观测值，不是 PASS 或严格 A/B 加速结论。** benchmark 完成于北京时间 2026-11-13 13:46:14，diagnosis 于 13:52:05 完成。每模式预热 2 次、单发 10 次、C32 请求 128 次，每次生成 1024 token；API 保持开放。
+
+| 模式 | 单发解码中位数（token/s） | 单发 TTFT 中位数（秒） | C32 聚合吞吐（token/s） | C32 请求耗时 P95（秒） |
+|---|---:|---:|---:|---:|
+| off | **314.54** | 0.20 | **2145.34** | 17.39 |
+| high | **188.88** | 0.23 | **1554.46** | 22.87 |
+
+| 诊断项 | 解码中位数（token/s） | TTFT 中位数（秒） | 样本 | 测量状态 |
+|---|---:|---:|---:|---|
+| text/off | 249.41 | 0.21 | 10 | NOT_SIGNOFF |
+| text/high | 231.59 | 0.18 | 10 | NOT_SIGNOFF |
+| code/off | 329.74 | 0.19 | 10 | NOT_SIGNOFF |
+| code/high | 265.08 | 0.18 | 10 | CLEAN |
+
+相对下方 R3 历史摘要，单发 off/high 的**观测比例**为 **2.17× / 1.73×**，C32 为 **1.44× / 1.22×**。本轮 off 全局计数比测试 usage 多 7225 token，全程多 45458 token；high 报告服务繁忙或计数未稳定，回传该行有截断。原因尚未确定。单组 code/high 的 CLEAN 不会提升整轮状态。
+
+[结构化回传记录](validation/target-r8-hf2-performance-20261113.json) 和[完整口径说明](docs/r8-hf2-performance-20261113.md) 保留了来源、状态与限制。本次摘要没有提供 R8 模型质量、工具调用成功率或实际 512K 验收报告。
+
+## R3 已验收配置
 
 | 项目 | 配置 |
 |---|---|
@@ -27,7 +51,7 @@ A100/SM80 deployment sources with the official DeepSeek recipe protocol, reprodu
 
 CPU KV 的实验代码保留供研究，未包含在本次成功签收配置中。没有验证更低主存容量、其他卡数或其他 GPU 架构。
 
-## 真机性能记录
+## R3 真机性能记录
 
 **2026-10-23 00:31:31（北京时间）**，部署者回传 R3 + HF4 + HF5 的完整验收、性能诊断与启动验收均为 `PASS`，服务已输出 `Ready`，本地 `/v1/models` 返回 `DeepSeek-Flash`。
 
@@ -60,7 +84,7 @@ C32 聚合吞吐是全部负载请求的生成 token 数除以整个负载阶段
 - **C32 并发与近 512K 单请求检索分别验收**，不能据此声称 32 个满 512K KV 窗口同时驻留。摘要没有给出长请求的精确输入 token 数。
 - 通过的协议范围包括 Responses、Chat Completions、Anthropic Messages、JSON/SSE、工具往返及图文；工具约束沿用官方 prompt/parser，没有另加本地 DSML 逐 token 硬语法。
 
-## 使用前准备
+## R3 使用前准备
 
 本仓库发布的是运行层源码和构建材料。当前 `Dockerfile` 依赖本地固定 R2 基础镜像：
 
@@ -104,7 +128,7 @@ bash start.sh --model-dir /srv/models/DeepSeek-V4.1-Flash-1017 --cpu-kv-gib 0
 
 `build-runtime.sh` 会更新本地 `manifests/runtime.env`。构建后先重新生成本地文件校验清单，再安装：`python3 scripts/package_manifest.py .`。这条路径复用既有 R2 基础镜像；本仓没有提供它的完整从零构建链。
 
-## 日志与验收结果
+## R3 日志与验收结果
 
 ```bash
 # 持续查看引擎日志；Ctrl+C 只退出查看。
@@ -124,7 +148,7 @@ bash tests/run.sh full --warmups 2 --single-samples 10 --load-requests 128 --out
 
 `runtime/` 是本地运行状态目录，不进入 Git。独立测试报告在 `runtime/acceptance-*/report.json`；启动报告在上面列出的固定路径。测试口径见 [docs/test-methods.md](docs/test-methods.md)。
 
-## 源码和修复
+## R3 源码和修复
 
 - `adapter/`：官方 recipe 协议绑定、验收 token trace、可选 CPU KV 适配。
 - `source/`：基于固定 R2 源码的 SM80 与实验计算覆盖层；近似 FFN 默认关闭。
@@ -141,6 +165,8 @@ bash tests/run.sh full --warmups 2 --single-samples 10 --load-requests 128 --out
 ## 来源与许可
 
 本地部署代码采用 [Apache-2.0](LICENSE)，第三方组件保留各自许可，见 [NOTICE](NOTICE)。
+
+完整贡献来源和当前/历史计算路径的区分见 **[致谢与贡献边界](ACKNOWLEDGMENTS.md)**。R8 的主要 SM80 内核与通信实现归属于 yaoyaoding 的 vLLM PR 及其上游贡献者；本项目的部署集成与 HF1/HF2 修复单独记录。
 
 - [vLLM](https://github.com/vllm-project/vllm)、[wtdcode/vllm-backport](https://github.com/wtdcode/vllm-backport)：固定推理基础与 SM80 适配，Apache-2.0。
 - [HalfVulpes/Deepinfer-SM80](https://github.com/HalfVulpes/Deepinfer-SM80)：选择性参考优化，固定 `2a828fc2122b6fc59805c0c98b6aaf78e7da9b48`，Apache-2.0。

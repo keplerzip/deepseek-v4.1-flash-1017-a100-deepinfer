@@ -1,0 +1,30 @@
+DeepSeek 1017 A100 R8 HF2 deployment source snapshot
+
+Local deployment/integration code: Apache-2.0; see LICENSE.
+Independent community project; see ../ACKNOWLEDGMENTS.md for full attribution.
+
+vLLM and Yaoyao Ding (yaoyaoding), PR #66497 contributors: Apache-2.0.
+Pinned PR tree: d423120cdc36d4cf8456f43ddfcc654b0c69c5ea.
+Official vLLM wheel baseline: ace415c06892a6119c88c8c57ed6fd761b722e32.
+https://github.com/vllm-project/vllm/pull/66497
+Original SPDX and copyright headers are retained in source/r8-pr66497/.
+Local metadata-dispatch edits are identified in source/r8-hf2/manifest.json.
+
+Official deepseek-ai/deepseek-recipe 0.2.0: MIT, Copyright (c) 2026 DeepSeek.
+Commit 935817c66f5d6e64838f419692545f06787e485f.
+https://github.com/deepseek-ai/deepseek-recipe
+Original server-py/main.py and recipe wheel are retained with
+vendor/RECIPE-LICENSE and vendor/RECIPE-THIRD-PARTY-LICENSES.
+
+DeepSeek model/tokenizer: MIT, Copyright (c) 2023 DeepSeek.
+See vendor/tokenizer/LICENSE. Model weights are not included.
+GSM8K: openai/grade-school-math, MIT; source and license in vendor/eval/.
+
+HalfVulpes/Deepinfer-SM80 and wtdcode/vllm-backport provided historical
+reference work for the earlier R3 deployment. Their original notices and
+source are retained in the repository root's NOTICE and vendor/ tree.
+R8's primary compute implementation follows the vLLM PR named above.
+
+PyTorch, CUDA, NCCL, Triton, NVIDIA CuTe DSL, TileLang and other dependencies
+retain their own licenses. Large runtime images and dependency wheels are
+not published in Git. No third-party project endorsement is implied.

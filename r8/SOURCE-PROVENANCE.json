@@ -1,0 +1,104 @@
+{
+  "release": "20261113-R8-HF2-SNAPSHOT",
+  "upstream_pr": "https://github.com/vllm-project/vllm/pull/66497",
+  "upstream_head": "d423120cdc36d4cf8456f43ddfcc654b0c69c5ea",
+  "upstream_base": "ace415c06892a6119c88c8c57ed6fd761b722e32",
+  "base_wheel": "vllm-0.34.0rc1.dev253+gace415c06-cp38-abi3-manylinux_2_28_x86_64.whl",
+  "base_wheel_sha256": "f693db0b2cb769ac882803371a7c072c0d0da5d685d5a69aa7c16d98e4c1ae1b",
+  "native_binaries": [
+    {
+      "path": "vllm/_C_stable_libtorch.abi3.so",
+      "size": 89648192,
+      "sha256": "353dbe919cccde480d86dcd8d29216423cf5953d1555a11202867af9c6b40bd3"
+    },
+    {
+      "path": "vllm/_deepselect_C.abi3.so",
+      "size": 4916728,
+      "sha256": "b121ae7460ae400e9e7d1084d430cc52ac97a4f485394c40319b2b267f87d1e9"
+    },
+    {
+      "path": "vllm/_flashkda_C.abi3.so",
+      "size": 7487960,
+      "sha256": "c6368af524bc571a7bdcf9cd5ab39125e40b5c775f5126e8e5b73d5d36d92339"
+    },
+    {
+      "path": "vllm/_flashmla_C.abi3.so",
+      "size": 3853504,
+      "sha256": "e21d53a7df8856705719c5890051d4cb450d1951ca18797102665745cb299a27"
+    },
+    {
+      "path": "vllm/_flashmla_extension_C.abi3.so",
+      "size": 219792,
+      "sha256": "78f2ce1f8d6bd1d94121ed7424ea3070957ca4182df92a71221298424d810793"
+    },
+    {
+      "path": "vllm/_moe_C_stable_libtorch.abi3.so",
+      "size": 32538792,
+      "sha256": "97d28a4519be454c6c30eb9cc8874a15bbabb379b1f4eb57dd1e45459b67a293"
+    },
+    {
+      "path": "vllm/cumem_allocator.abi3.so",
+      "size": 27264,
+      "sha256": "92ad21a86537952bd9229c2ecd88ac66a5787f37ec60ddf8b26be3ff04205c32"
+    },
+    {
+      "path": "vllm/fs_io_C.abi3.so",
+      "size": 27592,
+      "sha256": "1214f5bbe44bf7f5efc714c05a4af4a608478ebb1aa2701db4c20bf544580be2"
+    },
+    {
+      "path": "vllm/spinloop.abi3.so",
+      "size": 16872,
+      "sha256": "d9611e3b08ab8ed4ec80c28d483371aad10b212ab597603e60452ab0e8549b7f"
+    },
+    {
+      "path": "vllm/third_party/deep_gemm/_C_extension.abi3.so",
+      "size": 29987840,
+      "sha256": "3c694566d69d008db524605020a85d8bd76a5a0e45ab7aa39d0b7532d46671be"
+    },
+    {
+      "path": "vllm/vllm_flash_attn/_vllm_fa2_C.abi3.so",
+      "size": 76577240,
+      "sha256": "9894f54a83a349cd0f767ca211f88e9f6c8cf04237f8aa56eb03b424f66a596e"
+    },
+    {
+      "path": "vllm/vllm_flash_attn/_vllm_fa3_C.abi3.so",
+      "size": 56077728,
+      "sha256": "c67e4615f4fa3eec9084b3fa7f9cf83bcaf8b655231b1a6c38aabf4b95c0236b"
+    }
+  ],
+  "r7_protocol": {
+    "adapter/stream_integrity.py": {
+      "sha256": "e74a797d769f4be50762b0a15622167769952f585750e702ca264bbd6f186b5a",
+      "identical_to_r7": true
+    },
+    "adapter/native_token_usage.py": {
+      "sha256": "4b0ba292ced26c7dc33060cba1d885eafb0e558396d568ba0f513c4ed1fce96b",
+      "identical_to_r7": true
+    },
+    "vendor/official-recipe/source/server-py/main.py": {
+      "sha256": "07c3c12723a2ceabc07610122b88b3f5f6e8bf6b90173c1f49e884b63936748f",
+      "identical_to_r7": true
+    }
+  },
+  "recipe_version": "0.2.0",
+  "recipe_wheel_sha256": "259812bf382bc82668b672707c5922095cc4f5f60a6c514ff89640bb62a746f7",
+  "note": "R7 protocol retained. vLLM framework and dependencies upgraded for PR66497; not a binary-compatible patch to R7 vLLM. R5 custom Python paths absent from final image.",
+  "real_a100_inference": "USER_REPORTED_SERVING_BENCHMARK_WITH_CONTAMINATION",
+  "weights_included": false,
+  "pinned_pr_parent": "d33c17cb78ef59a6242891cebc3dddd7b5e2301c",
+  "upstream_base_role": "PR comparison/merge base and official wheel ABI baseline; not the immediate parent of the pinned head",
+  "local_hotfixes": [
+    {
+      "id": "HF1",
+      "scope": "Disable unsupported DSpark local argmax reduction and bind effective configuration"
+    },
+    {
+      "id": "HF2",
+      "scope": "Per-backend metadata cache-format resolver; stock hardware guard retained",
+      "manifest": "source/r8-hf2/manifest.json"
+    }
+  ],
+  "target_record": "../validation/target-r8-hf2-performance-20261113.json",
+  "publication_scope": "Source snapshot and small hotfix; model weights, runtime images and 202 offline dependency wheels are not in Git"
+}

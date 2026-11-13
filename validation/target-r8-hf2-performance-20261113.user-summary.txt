@@ -1,0 +1,24 @@
+User-reported target result; installation path removed and whitespace normalized.
+Report run: perf-only-20261113T054050-2193883
+Overall status: FAIL
+Benchmark status: FAIL
+Benchmark finished_at: 2026-11-13T05:46:14.700536+00:00
+[off]
+single_decode_tokens_per_second_median: 314.54
+single_ttft_seconds_median: 0.20
+c32_aggregate_tokens_per_second: 2145.34
+c32_latency_p95_seconds: 17.39
+[high]
+single_decode_tokens_per_second_median: 188.88
+single_ttft_seconds_median: 0.23
+c32_aggregate_tokens_per_second: 1554.46
+c32_latency_p95_seconds: 22.87
+Contamination as pasted (high-mode message is truncated/garbled):
+["benchmark off: Global generation tokens 150585.0 != this test's server usage 143360; possible traffic, dropped request, counter reset or accounting error", "benchmark high: Service was busy or counters did not settle; possi143360; possible traffic, dropped request, counter reset or accounting error", "Global generation tokens 332178.0 != this test's server usage 286720; possible traffic, dropped request, counter reset or accounting error"]
+Diagnosis status: CONTAMINATED
+Diagnosis finished_at: 2026-11-13T05:52:05.029927+00:00
+text/off: decode_tps_median=249.41, ttft_seconds_median=0.21, samples=10, measurement_status=NOT_SIGNOFF
+text/high: decode_tps_median=231.59, ttft_seconds_median=0.18, samples=10, measurement_status=NOT_SIGNOFF
+code/off: decode_tps_median=329.74, ttft_seconds_median=0.19, samples=10, measurement_status=NOT_SIGNOFF
+code/high: decode_tps_median=265.08, ttft_seconds_median=0.18, samples=10, measurement_status=CLEAN
+The pasted text used NOT_SIGN0FF once; normalized to NOT_SIGNOFF.

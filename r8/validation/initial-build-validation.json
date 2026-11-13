@@ -1,0 +1,59 @@
+{
+  "status": "BUILD_PASS_TARGET_NOT_RUN",
+  "release": "20261113-R8-CANDIDATE",
+  "cpu_official_protocol_tests": {
+    "status": "PASS",
+    "tests": 64,
+    "real_recipe": true,
+    "model_outputs": "controlled fixtures; no real model"
+  },
+  "upstream_host_tests": {
+    "status": "PASS",
+    "tests": 56,
+    "hardware": "CPU"
+  },
+  "sm80_cross_compile": {
+    "status": "PASS",
+    "kernel_variants": 55,
+    "ptx_and_cubin_artifacts": 110,
+    "gpu_executed": false,
+    "numeric_correctness": "NOT_RUN"
+  },
+  "dependencies": {
+    "status": "PASS",
+    "locked_wheels": 202,
+    "pip_check": "No broken requirements found."
+  },
+  "launch_cli_and_1017_metadata": {
+    "status": "PASS",
+    "full_engine_config": "NOT_RUN_NO_GPU"
+  },
+  "real_model_quality": "NOT_RUN_NO_A100",
+  "real_model_tools": "NOT_RUN_NO_A100",
+  "real_512k": "NOT_RUN_NO_A100",
+  "performance": "NOT_RUN_NO_A100",
+  "existing_r7_modified": false,
+  "startup_tests_required": false,
+  "api_waits_for_benchmark": false,
+  "notes": [
+    "Target qualification is deliberately pending; this package is not promoted over stable R7.",
+    "Cross compilation uses actual CuTe/PTX assembler, fake pointers/stream, and declared SM80 hardware constants. No GPU kernel was executed."
+  ],
+  "installed_files": {
+    "status": "PASS",
+    "checked": 76
+  },
+  "final_image_environment": "clean; no inherited R5 variables",
+  "image_id": "sha256:0bf1394f4a736530656d5c365811a08c7034de72e9b211834e6b8299909e6ca7",
+  "image_export": "PASS",
+  "packaging_manifest": "Includes nested upstream runtime/ code; only root deployment state is excluded",
+  "additional_compute_skipping": "explicitly disabled: SWA/decoder replay and kv-sharing fast-prefill",
+  "default_port": 8005,
+  "r7_network_parity": "PASS",
+  "port_workflow_tests": {
+    "status": "PASS",
+    "tests": 5
+  },
+  "connection_contract": "R7 unchanged: 8005, same bridge ACL, authentication, API paths, served model name",
+  "retained_checks": "Previous compute/protocol checks retained; connection correction verified by 5 lifecycle tests and byte-identical R7 network files"
+}

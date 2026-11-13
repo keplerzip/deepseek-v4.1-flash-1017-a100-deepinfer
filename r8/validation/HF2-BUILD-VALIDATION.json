@@ -1,0 +1,12 @@
+{
+  "update": "R8-HF2-Indexer-20261113",
+  "status": "PASS",
+  "cpu_tests": 17,
+  "scope": "real upstream metadata constructors using CPU buffers + simulated SM80; CPU Docker lifecycle fixtures",
+  "gpu_execution": "NOT_RUN",
+  "full_model_startup": "NOT_RUN",
+  "kernel_changes": false,
+  "protocol_changes": false,
+  "includes_hf1": true,
+  "image_unchanged": true
+}

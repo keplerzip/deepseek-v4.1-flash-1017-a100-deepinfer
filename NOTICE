@@ -31,3 +31,15 @@ https://modelscope.cn/models/deepseek-ai/DeepSeek-V4.1-Flash-1017
 
 CUDA, NCCL, PyTorch, Triton, TileLang and other runtime dependencies retain their
 own licenses. The multi-gigabyte runtime images are not distributed in this repo.
+
+R8 HF2 source snapshot (r8/):
+The primary SM80 CuTe DSL compute/communication implementation is from
+Yaoyao Ding (yaoyaoding) and vLLM PR #66497 contributors, Apache-2.0,
+at d423120cdc36d4cf8456f43ddfcc654b0c69c5ea.
+https://github.com/vllm-project/vllm/pull/66497
+The official wheel baseline is ace415c06892a6119c88c8c57ed6fd761b722e32.
+Local HF1/HF2 compatibility corrections are separately identified in
+r8/source/r8-hf2/manifest.json and r8/SOURCE-PROVENANCE.json.
+Official DeepSeek recipe 0.2.0 and its MIT/third-party notices are retained.
+GSM8K evaluation data is from openai/grade-school-math, MIT, with its exact
+source and license in r8/vendor/eval/. See ACKNOWLEDGMENTS.md for attribution.

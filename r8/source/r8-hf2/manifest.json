@@ -1,0 +1,17 @@
+{
+  "update": "R8-HF2-IndexerMetadata-20261113",
+  "upstream_head": "d423120cdc36d4cf8456f43ddfcc654b0c69c5ea",
+  "scope": "metadata cache-format dispatch only; no kernel or protocol changes",
+  "files": [
+    {
+      "path": "vllm/v1/attention/backends/mla/indexer.py",
+      "before_sha256": "2c21e5d414c0c5b04ece8adf96168888da28196aa7e8236a37d50e15a826870e",
+      "sha256": "0ee41d878a3191e44d80bbe27e771b16d1c0c2e00851099d30221cf8623c19b7"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/indexer_metadata.py",
+      "before_sha256": "7d6f40e6d8e6c9438817d9d800c7a51c1430d4eacfba6de91fbc699b9882d685",
+      "sha256": "4baa15ac2a5df51bfe412b856208c17162e0dcb41d67a3113ca54f3a0cbdee47"
+    }
+  ]
+}

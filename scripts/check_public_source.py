@@ -8,7 +8,9 @@ import subprocess
 
 ROOT=Path(__file__).resolve().parents[1]
 EXCLUDED={'.git','runtime','images','dist','__pycache__'}
-files=[p for p in ROOT.rglob('*') if p.is_file() and not any(part in EXCLUDED for part in p.relative_to(ROOT).parts)]
+files=[p for p in ROOT.rglob('*') if p.is_file()
+       and p.relative_to(ROOT).parts[0] not in EXCLUDED
+       and not any(part in {'.git','__pycache__'} for part in p.relative_to(ROOT).parts)]
 for path in files:
     if path.suffix=='.py':ast.parse(path.read_text(),filename=str(path))
     if path.suffix=='.sh':subprocess.run(['bash','-n',str(path)],check=True)
@@ -39,4 +41,5 @@ config=json.loads((ROOT/'configs/runtime.json').read_text())
 assert config['gpu_memory_utilization']==.95 and config['enable_prefix_caching']
 assert config['max_model_len']==524288 and config['max_num_seqs']==32
 assert 'cpu_kv_gib=0' in (ROOT/'start.sh').read_text()
+subprocess.run(['python3',str(ROOT/'scripts/check_r8_public_source.py')],cwd=ROOT,check=True)
 print(f'PASS: {len(files)} source/assets checked; GPU/model/performance NOT_RUN by this check')

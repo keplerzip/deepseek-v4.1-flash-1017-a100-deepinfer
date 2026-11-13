@@ -1,0 +1,14 @@
+[package]
+name = "deepseek-recipe-core"
+version.workspace = true
+edition.workspace = true
+description = "Shared conversation, message, and tool types for DeepSeek models."
+readme.workspace = true
+documentation = "https://docs.rs/deepseek-recipe-core"
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+deepseek-recipe-macros = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }

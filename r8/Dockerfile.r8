@@ -1,0 +1,40 @@
+FROM deepseek-v4.1-flash-1017-a100-deepinfer:20261109-r5-fullperf AS build
+USER root
+RUN /usr/bin/python3 -m venv /opt/r8-venv && \
+    rm -rf /usr/local/lib/python3.12/dist-packages /opt/deepinfer /vllm-workspace /root/.cache
+COPY vendor/r8-wheels/ /r8-wheels/
+COPY vendor/r8-requirements.lock /r8-requirements.lock
+RUN /opt/r8-venv/bin/python -m pip install --no-index --no-deps --require-hashes \
+    --find-links=/r8-wheels -r /r8-requirements.lock && rm -rf /r8-wheels /root/.cache/pip
+COPY *.sh /opt/deepinfer/
+COPY adapter/ /opt/deepinfer/adapter/
+COPY scripts/ /opt/deepinfer/scripts/
+COPY tests/ /opt/deepinfer/tests/
+COPY source/r8-pr66497/ /opt/deepinfer/source/r8-pr66497/
+COPY source/r8-hf2/ /opt/deepinfer/source/r8-hf2/
+COPY configs/ /opt/deepinfer/configs/
+COPY vendor/official-recipe/ /opt/deepinfer/vendor/official-recipe/
+COPY vendor/tokenizer/ /opt/deepinfer/vendor/tokenizer/
+COPY vendor/eval/ /opt/deepinfer/vendor/eval/
+COPY vendor/wheels/ /opt/deepinfer/vendor/wheels/
+COPY LICENSE NOTICE VERSION /opt/deepinfer/
+RUN /opt/r8-venv/bin/python -m pip install --no-index --no-deps /opt/deepinfer/vendor/wheels/*.whl && \
+    /opt/r8-venv/bin/python /opt/deepinfer/scripts/install_r8_overlay.py && \
+    /opt/r8-venv/bin/python /opt/deepinfer/scripts/install_r8_hotfixes.py && \
+    /opt/r8-venv/bin/python -m compileall -q /opt/deepinfer/adapter /opt/r8-venv/lib/python3.12/site-packages/vllm/models/deepseek_v41
+FROM scratch
+COPY --from=build / /
+WORKDIR /state
+ENV PATH=/opt/r8-venv/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64 \
+    CUDA_HOME=/usr/local/cuda CUDA_VERSION=13.0.3 \
+    NVIDIA_VISIBLE_DEVICES=all NVIDIA_DRIVER_CAPABILITIES=compute,utility NVIDIA_REQUIRE_CUDA="cuda>=13.0" \
+    CUTE_DSL_ARCH=sm_80 \
+    PYTHONPATH=/opt/deepinfer HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 HF_DATASETS_OFFLINE=1 \
+    HF_HUB_DISABLE_TELEMETRY=1 VLLM_NO_USAGE_STATS=1 DO_NOT_TRACK=1 PYTHONDONTWRITEBYTECODE=1 \
+    DEEPINFER_TOKENIZER=/opt/deepinfer/vendor/tokenizer/tokenizer.json \
+    VLLM_HOST_IP=127.0.0.1 GLOO_SOCKET_IFNAME=lo NCCL_SOCKET_IFNAME=lo
+LABEL org.opencontainers.image.title="DeepSeek 1017 A100 R8 PR66497 independent candidate" \
+      org.opencontainers.image.revision="d423120cdc36d4cf8456f43ddfcc654b0c69c5ea" \
+      deepinfer.release="20261113-R8-CANDIDATE" deepinfer.recipe-version="0.2.0"
+ENTRYPOINT ["/opt/r8-venv/bin/python", "/opt/deepinfer/scripts/launch.py"]

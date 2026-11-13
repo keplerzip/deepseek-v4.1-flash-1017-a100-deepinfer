@@ -9,7 +9,9 @@ EXCLUDED = {'dist', 'runtime', '.git', '__pycache__'}
 
 def included(path, root):
     relative = path.relative_to(root)
-    return not any(part in EXCLUDED for part in relative.parts) and path.name != 'SHA256SUMS' and path.suffix != '.pyc'
+    return (relative.parts[0] not in EXCLUDED
+            and not any(part in {'.git','__pycache__'} for part in relative.parts)
+            and path.name != 'SHA256SUMS' and path.suffix != '.pyc')
 
 
 if __name__ == '__main__':

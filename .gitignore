@@ -20,3 +20,5 @@ __pycache__/
 !/validation/target-hf5-acceptance-20261023.json
 !/validation/target-hf5-acceptance-20261023.user-summary.txt
 !/validation/public-source-validation.json
+!/validation/target-r8-hf2-performance-20261113.json
+!/validation/target-r8-hf2-performance-20261113.user-summary.txt

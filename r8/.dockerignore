@@ -1,0 +1,11 @@
+.git
+.build
+__pycache__
+**/__pycache__
+*.pyc
+images
+dist
+runtime
+validation
+docs
+vendor/sm80/charts

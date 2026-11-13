@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "scope": "Local public-snapshot CPU fixture qualification; no GPU or model inference",
+  "cpu_test_executions": 82,
+  "framework": "unittest",
+  "runtime_image": "sha256:0bf1394f4a736530656d5c365811a08c7034de72e9b211834e6b8299909e6ca7",
+  "hf2_sources_readonly_mounted": true,
+  "source_integrity_checks": "PASS",
+  "log": "public-cpu-fixtures.log",
+  "log_sha256": "6e0709ea7ad43ed55daaff12cb294f532927c02056a9a48bd3383ee70ee23bcb",
+  "gpu_execution": "NOT_RUN",
+  "real_model_quality": "NOT_RUN",
+  "target_performance_record": "../../validation/target-r8-hf2-performance-20261113.json"
+}

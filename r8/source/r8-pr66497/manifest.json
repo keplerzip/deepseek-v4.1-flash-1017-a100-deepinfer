@@ -1,0 +1,383 @@
+{
+  "schema": 1,
+  "pr": "https://github.com/vllm-project/vllm/pull/66497",
+  "head": "d423120cdc36d4cf8456f43ddfcc654b0c69c5ea",
+  "base": "ace415c06892a6119c88c8c57ed6fd761b722e32",
+  "base_wheel": "vllm-0.34.0rc1.dev253+gace415c06-cp38-abi3-manylinux_2_28_x86_64.whl",
+  "base_wheel_sha256": "f693db0b2cb769ac882803371a7c072c0d0da5d685d5a69aa7c16d98e4c1ae1b",
+  "files": [
+    {
+      "path": "tests/kernels/mhc/test_mhc_kernels.py",
+      "kind": "test",
+      "sha256": "b5e2ed75f39e536c1c14289bb002e3d804db861ed1607e0ed16851cd2f5e3356",
+      "base_sha256": null,
+      "size": 80664
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/conftest.py",
+      "kind": "test",
+      "sha256": "45d203867458c46e1bb8cb1a0f169bde1c20f138334974f52640f13cc25863ab",
+      "base_sha256": null,
+      "size": 663
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/ampere/__init__.py",
+      "kind": "test",
+      "sha256": "e3c55cbb0d7a8bd47df6f3378835644645f5d3bc89b45793b5d5a02d013e5c58",
+      "base_sha256": null,
+      "size": 107
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/ampere/reference.py",
+      "kind": "test",
+      "sha256": "2e194d621d7393eb76b9fa73ffe762d6ca396c5f8975855fbe109177cd3b6f96",
+      "base_sha256": null,
+      "size": 22567
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/ampere/test_all_gather.py",
+      "kind": "test",
+      "sha256": "aa6013dfa1f4e5b47d9c06e4c24916b5e8e8fb84c1a90463be19018fc59953e3",
+      "base_sha256": null,
+      "size": 18481
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/ampere/test_all_reduce.py",
+      "kind": "test",
+      "sha256": "318bc0d644e2133d5bba82c7215a1bb3215c2088f155c947739f4fa45138dd89",
+      "base_sha256": null,
+      "size": 15537
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/ampere/test_gemv.py",
+      "kind": "test",
+      "sha256": "0d2876d76799a342b42298e3db7d19af3fcbc9a62b3c416b1d190bfc32b9ced3",
+      "base_sha256": null,
+      "size": 6901
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/ampere/test_indexer_row_shard.py",
+      "kind": "test",
+      "sha256": "0e031bfa2cfd5de902e1b6c3360f57606c98985304facb7ca5cd227c146982a7",
+      "base_sha256": null,
+      "size": 1637
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/ampere/test_kernels.py",
+      "kind": "test",
+      "sha256": "7e121766f306d9409d4c22e55e8f602f4127dba2f195b28bfbc036bfb1e5fe44",
+      "base_sha256": null,
+      "size": 25643
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/ampere/test_mhc.py",
+      "kind": "test",
+      "sha256": "36870c236cab9811f5463d9763b2b602ddf302b553c00371741f433b6a5c36f8",
+      "base_sha256": null,
+      "size": 8909
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/ampere/test_mhc_projection.py",
+      "kind": "test",
+      "sha256": "5724c79411ed72710196567947508f949692aac0e335e719f975e3a689c1d9c8",
+      "base_sha256": null,
+      "size": 5002
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/ampere/test_prefill_row_shard.py",
+      "kind": "test",
+      "sha256": "7577d5d1b7ce842ce22a236e427603153bcfbc5cc8cdf5d7dacd1709cfab917f",
+      "base_sha256": null,
+      "size": 3372
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/hopper/__init__.py",
+      "kind": "test",
+      "sha256": "e3c55cbb0d7a8bd47df6f3378835644645f5d3bc89b45793b5d5a02d013e5c58",
+      "base_sha256": null,
+      "size": 107
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/hopper/test_indexer.py",
+      "kind": "test",
+      "sha256": "a2335a14e15ae1acb8096ff553c5ed5e8eade1ef16c69f61ee15e563ed7d4135",
+      "base_sha256": null,
+      "size": 3088
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/hopper/test_indexer_metadata.py",
+      "kind": "test",
+      "sha256": "8897d970ed3885e9549f498d31c0ef429bf1829e0bca36f91f686edbcc60dbbb",
+      "base_sha256": null,
+      "size": 1106
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/hopper/test_mhc_all_reduce.py",
+      "kind": "test",
+      "sha256": "ff027b0603e05894e5ff94445941f639c501c277f5ee09f56a6cc89397fa64c9",
+      "base_sha256": null,
+      "size": 9154
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/hopper/test_selection.py",
+      "kind": "test",
+      "sha256": "82fe2e400227f4ee6943b81b0f2bd0fe4092275d0877ff0bbadd5a2f7e24b608",
+      "base_sha256": null,
+      "size": 2360
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/hopper/test_sparse_mla.py",
+      "kind": "test",
+      "sha256": "e48d2e2c38a37bea6b01ff70862feda53ebfb93d73aff855657073719f490de9",
+      "base_sha256": null,
+      "size": 5873
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/specialized_decode/test_metadata_graph_state.py",
+      "kind": "test",
+      "sha256": "b4e9d8fe73c012279d0876ad8ccb95b85229c700c23aaae5a4ad387e86b7009f",
+      "base_sha256": null,
+      "size": 2811
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/test_mhc_dispatch.py",
+      "kind": "test",
+      "sha256": "9bc598046c5886aad23b7046b70d634e6bcccc569547a99029c7453652c891d8",
+      "base_sha256": null,
+      "size": 10552
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/test_mxfp4_marlin_padding.py",
+      "kind": "test",
+      "sha256": "c19930ff249138e10b91a7a9b77eabc9e603f9f156a6859caaaf5d1f2ceeb6bf",
+      "base_sha256": null,
+      "size": 3472
+    },
+    {
+      "path": "tests/models/deepseek_v41/nvidia/test_quantization.py",
+      "kind": "test",
+      "sha256": "faa62eecfe5741519db6aa8d6c67924567a7de00a91b830060b06b6f7fbb9c4b",
+      "base_sha256": null,
+      "size": 18764
+    },
+    {
+      "path": "tests/models/deepseek_v41/test_quant_config.py",
+      "kind": "test",
+      "sha256": "635e19ef3a281aa421a2b0e7dfd8d2d0a20a939d1bcdc1d37fa33903c7f495ef",
+      "base_sha256": null,
+      "size": 2088
+    },
+    {
+      "path": "vllm/models/deepseek_v41/attention.py",
+      "kind": "runtime",
+      "sha256": "507fd37a0a5174ab96960de7e3680e0ea5ff6c7f187dea12c0c0c33c6df5c542",
+      "base_sha256": "176b02f2df5151b2d75ed2109f5fb8cbfaff2eb911806218f3a0fa5d772d8f18",
+      "size": 70763
+    },
+    {
+      "path": "vllm/models/deepseek_v41/common/engram.py",
+      "kind": "runtime",
+      "sha256": "ef3c1abcbca43ca88ba4bb03a336152afd98e78197e1bd86eb143f0fdd85e482",
+      "base_sha256": "a645fbb2bacdc4b999b5dc450980cbdb430edc69f1fb8911014cdbe37f9cf33c",
+      "size": 80651
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/dspark.py",
+      "kind": "runtime",
+      "sha256": "0023c9b98d091235d185be8abcedb7ebe5a4dd46a691c85b8ebfa20c390c5fab",
+      "base_sha256": "e235d22690dbcb7244f435d410fc495d3cc2634534bcd9d1d279e437a3bfe04f",
+      "size": 26123
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/model.py",
+      "kind": "runtime",
+      "sha256": "34099f83288cee4fd5196ef536f39eed33d297d1c64d77c18212dfdfea17f241",
+      "base_sha256": "6bb9ab1f2b8feb1a7a1d0fa4b301c559b75318304b2e616b832e6b0f8e747b3a",
+      "size": 82431
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/ops/mhc.py",
+      "kind": "runtime",
+      "sha256": "9b09c3e135f625ab2ae56fd733f93201297c4a042a95ac77a750044818d42678",
+      "base_sha256": "635158515d4392632f21162f31635adc792fab1b46bb6070adbab73b3a885fb2",
+      "size": 30938
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/quantization.py",
+      "kind": "runtime",
+      "sha256": "5b3b5b799dbfd7fe4e6468bd237a7d20327c87038ab214196f0a57d495a6ece4",
+      "base_sha256": null,
+      "size": 17901
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/__init__.py",
+      "kind": "runtime",
+      "sha256": "26245aeeef4a63bfb84adc6502fed07c908da2305afc93766f9c772a073da5bf",
+      "base_sha256": "ee97ccc95f0d414e06719dd819d61c5c517a2e1bee9e138711568102ee12b70d",
+      "size": 7868
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/__init__.py",
+      "kind": "runtime",
+      "sha256": "b211d7b54de758a26128be1305dd9065ff46352cc3fec72ac2545de42979d7c5",
+      "base_sha256": null,
+      "size": 3840
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/all_gather.py",
+      "kind": "runtime",
+      "sha256": "63b28951fa141ded6686370cb66453ae7a4e2863eeb95c0f60fb34c337188563",
+      "base_sha256": null,
+      "size": 15567
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/all_reduce.py",
+      "kind": "runtime",
+      "sha256": "755d8c8cc142b0806a3cf88cbeb55073d78a74bbff59dd0dd19c65d76c28052e",
+      "base_sha256": null,
+      "size": 31377
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/attention.py",
+      "kind": "runtime",
+      "sha256": "450f153fe296f34ebd52b13578f3426b7a2ca80cd3fad3815d127dc87d5fc1d5",
+      "base_sha256": null,
+      "size": 9519
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/codecs.py",
+      "kind": "runtime",
+      "sha256": "dae1101fe117154e3fbc8f9e59d239a6bd3445e43f85f6a7d72200c32d03e814",
+      "base_sha256": null,
+      "size": 10520
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/columns.py",
+      "kind": "runtime",
+      "sha256": "26d0b8a6c74e049fd8a5a532903677ca530b8f5a6fcbaa4355b3bcc3651c1fce",
+      "base_sha256": null,
+      "size": 4577
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/gemv.py",
+      "kind": "runtime",
+      "sha256": "147726e5618af4ab944530e51725de64f419f1da6354a72d35b7845084254912",
+      "base_sha256": null,
+      "size": 29370
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/indexer.py",
+      "kind": "runtime",
+      "sha256": "e9d37c52fdf8e28e0944fc97f61aa847668e461d2ad4fdc9b552b14f8ae1d1f3",
+      "base_sha256": null,
+      "size": 26897
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/indexer_metadata.py",
+      "kind": "runtime",
+      "sha256": "7d6f40e6d8e6c9438817d9d800c7a51c1430d4eacfba6de91fbc699b9882d685",
+      "base_sha256": null,
+      "size": 11437
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/mhc.py",
+      "kind": "runtime",
+      "sha256": "54b9876bdcf78c16c0555374f7dd1504948ee78d2e6d018c660e5ecefac973ac",
+      "base_sha256": null,
+      "size": 61919
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/mhc_projection.py",
+      "kind": "runtime",
+      "sha256": "1c16c6c8c8e515e8be537ff932f3ad0168d43575fad06e6566fa0c332451c2f2",
+      "base_sha256": null,
+      "size": 14695
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/mqa_logits.py",
+      "kind": "runtime",
+      "sha256": "0c9fb2e6e342536b8f651207b7eb53d2a26b8faa275b646693b9e6f3d819e6dc",
+      "base_sha256": null,
+      "size": 28259
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/quantize.py",
+      "kind": "runtime",
+      "sha256": "e577652c6e4855002d4bf01431ea69b6c78e633739e2417ac20d515e2ee22d6b",
+      "base_sha256": null,
+      "size": 20474
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/row_shard.py",
+      "kind": "runtime",
+      "sha256": "d2cd86dd768f7ebcf7e42d9895e602bc702cf02d4121084efa414697ffdfe1d3",
+      "base_sha256": null,
+      "size": 8076
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/sparse_mla.py",
+      "kind": "runtime",
+      "sha256": "3b338cc58197caf9ab5ae57d03e4c20547ccd1f08402a7d2e16fb2540f688ed1",
+      "base_sha256": null,
+      "size": 44089
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/topk.py",
+      "kind": "runtime",
+      "sha256": "fee575479997ea93b15723309793160cb3c025618ea77b4e70b12be979b27826",
+      "base_sha256": null,
+      "size": 26380
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/hopper/__init__.py",
+      "kind": "runtime",
+      "sha256": "4c7eb8fb3e0c63ae72c32b9c2fdf591828354bc1d5e7e5c2cfd64d7e03c39528",
+      "base_sha256": null,
+      "size": 2062
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/hopper/attention.py",
+      "kind": "runtime",
+      "sha256": "83369da0720e68e2b52fb00d948d37fe6f1812eb3a4f08c737ca143aecc3f313",
+      "base_sha256": null,
+      "size": 5472
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/hopper/indexer.py",
+      "kind": "runtime",
+      "sha256": "062887125f851f030c6d5c2dad854b504da3940a688f601da98c13753a45e6ec",
+      "base_sha256": null,
+      "size": 16706
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/hopper/indexer_metadata.py",
+      "kind": "runtime",
+      "sha256": "9b190c5ce025c17cd4df73ea4051e9e0f8e6b770ea1fb472c7ad6211f5872ce7",
+      "base_sha256": null,
+      "size": 4073
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/runtime/metadata_graphs.py",
+      "kind": "runtime",
+      "sha256": "9fd0fe0fe1a7b7b15dfc012fc644bf82b903d6b39bc2289aff38f807bc417aee",
+      "base_sha256": "c7682a11433382ade5330d57720657380a4c7855c75c475682a51bddfab9e15e",
+      "size": 11452
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/runtime/model_state.py",
+      "kind": "runtime",
+      "sha256": "5a1c5f7cf35f1c58da630943b42c76b1e3d1dd4d2818c20d00f2592c6689e69f",
+      "base_sha256": "9fb4ceb3bec9188758cae27b505961ad0262d6350bf1370cd5d61097dc7925a3",
+      "size": 10236
+    },
+    {
+      "path": "vllm/models/deepseek_v41/quant_config.py",
+      "kind": "runtime",
+      "sha256": "f361e875f114fe722896ecc99319918d6004b4118bd4fce4e38920ec0142e5a8",
+      "base_sha256": "1007a0fa3d66b74a4b225af68818a1e0e3a15331f226be1b6fa78baf009cec1f",
+      "size": 11562
+    }
+  ],
+  "gpu_validation": "NOT_RUN",
+  "full_model_quality": "NOT_RUN"
+}

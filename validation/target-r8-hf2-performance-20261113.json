@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "record_kind": "user_reported_target_gpu_performance_with_contamination",
+  "release": "DeepSeek 1017 A100 R8 + HF1 + HF2",
+  "publication_decision": "Frozen and published at user request with original failure/contamination statuses retained",
+  "status": "FAIL",
+  "benchmark_status": "FAIL",
+  "diagnosis_status": "CONTAMINATED",
+  "run": "perf-only-20261113T054050-2193883",
+  "benchmark_finished_at_utc": "2026-11-13T05:46:14.700536+00:00",
+  "benchmark_finished_at_asia_shanghai": "2026-11-13T13:46:14.700536+08:00",
+  "diagnosis_finished_at_utc": "2026-11-13T05:52:05.029927+00:00",
+  "diagnosis_finished_at_asia_shanghai": "2026-11-13T13:52:05.029927+08:00",
+  "source": {
+    "kind": "Deployment operator pasted summary in conversation",
+    "summary_path": "validation/target-r8-hf2-performance-20261113.user-summary.txt",
+    "summary_sha256": "3d4937a226a8533de0cbd016142e66a14f089161d06cf42b7743725eeaa8cee4",
+    "raw_target_reports_independently_retrieved": false,
+    "summary_whitespace_normalized": true,
+    "measurement_status_ocr_normalized": true,
+    "contamination_transcription_complete": false,
+    "public_redactions": [
+      "installation path",
+      "target hostname",
+      "local workspace path"
+    ]
+  },
+  "deployment_context": {
+    "hardware": "8 x NVIDIA A100 80 GiB / SM80",
+    "model": "DeepSeek-V4.1-Flash-1017",
+    "tensor_parallel_size": 8,
+    "expert_parallel_enabled": false,
+    "pipeline_parallel_size": 1,
+    "data_parallel_size": 1,
+    "max_model_len": 524288,
+    "max_num_seqs": 32,
+    "gpu_memory_utilization": 0.94,
+    "cpu_kv_offload": false,
+    "engram_parameter_cpu_offload": true,
+    "dspark_k": 5,
+    "kv_cache_dtype": "nvfp4_ds_mla",
+    "indexer_kv_dtype": "mxfp4",
+    "tool_protocol": "official deepseek-recipe 0.2.0 + R7 integrity wrapper",
+    "port": 8005,
+    "configuration_source": "Shipped R8 HF2 configuration and established deployment context; target effective-config.json was not independently retrieved"
+  },
+  "measurement_parameters_from_shipped_script": {
+    "benchmark_modes": [
+      "off",
+      "high"
+    ],
+    "warmups_per_mode": 2,
+    "single_samples_per_mode": 10,
+    "c32_requests_per_mode": 128,
+    "output_tokens_per_request": 1024,
+    "diagnosis_warmups_per_case": 2,
+    "diagnosis_samples_per_case": 10,
+    "api_remained_available": true
+  },
+  "benchmarks": {
+    "off": {
+      "single_decode_tokens_per_second_median": 314.54,
+      "single_ttft_seconds_median": 0.2,
+      "c32_aggregate_tokens_per_second": 2145.34,
+      "c32_latency_p95_seconds": 17.39
+    },
+    "high": {
+      "single_decode_tokens_per_second_median": 188.88,
+      "single_ttft_seconds_median": 0.23,
+      "c32_aggregate_tokens_per_second": 1554.46,
+      "c32_latency_p95_seconds": 22.87
+    }
+  },
+  "diagnosis_summary": {
+    "text/off": {
+      "decode_tps_median": 249.41,
+      "ttft_seconds_median": 0.21,
+      "samples": 10,
+      "measurement_status": "NOT_SIGNOFF"
+    },
+    "text/high": {
+      "decode_tps_median": 231.59,
+      "ttft_seconds_median": 0.18,
+      "samples": 10,
+      "measurement_status": "NOT_SIGNOFF"
+    },
+    "code/off": {
+      "decode_tps_median": 329.74,
+      "ttft_seconds_median": 0.19,
+      "samples": 10,
+      "measurement_status": "NOT_SIGNOFF"
+    },
+    "code/high": {
+      "decode_tps_median": 265.08,
+      "ttft_seconds_median": 0.18,
+      "samples": 10,
+      "measurement_status": "CLEAN"
+    }
+  },
+  "contamination": {
+    "off": {
+      "global_generation_tokens": 150585,
+      "test_usage_generation_tokens": 143360,
+      "excess_tokens": 7225
+    },
+    "global_accounting": {
+      "global_generation_tokens": 332178,
+      "test_usage_generation_tokens": 286720,
+      "excess_tokens": 45458
+    },
+    "high": {
+      "service_busy_or_counters_not_settled_reported": true,
+      "full_original_message_available": false
+    },
+    "root_cause": "UNDETERMINED; pasted messages mention possible traffic, dropped request, counter reset or accounting error"
+  },
+  "qualification": {
+    "clean_performance_comparison": "NOT_QUALIFIED",
+    "full_request_success": "NOT_ESTABLISHED_FROM_SUMMARY",
+    "model_quality": "NOT_PROVIDED",
+    "tool_call_correctness": "NOT_PROVIDED",
+    "long_context_512k_inference": "NOT_PROVIDED",
+    "simultaneous_c32_full_512k_residency": "NOT_ESTABLISHED",
+    "note": "One CLEAN diagnosis group does not promote this entire run to PASS"
+  },
+  "comparison_baseline": "validation/target-hf5-acceptance-20261023.json",
+  "comparison_scope": "Observed ratios of user-reported summaries; no strict controlled A/B and no accepted clean speedup claim",
+  "observed_ratios_vs_r3_hf5": {
+    "off": {
+      "single_decode_tokens_per_second_median": 2.169391,
+      "single_ttft_seconds_median": 0.769231,
+      "c32_aggregate_tokens_per_second": 1.440328,
+      "c32_latency_p95_seconds": 0.592706
+    },
+    "high": {
+      "single_decode_tokens_per_second_median": 1.730621,
+      "single_ttft_seconds_median": 0.92,
+      "c32_aggregate_tokens_per_second": 1.216627,
+      "c32_latency_p95_seconds": 0.733483
+    }
+  }
+}
