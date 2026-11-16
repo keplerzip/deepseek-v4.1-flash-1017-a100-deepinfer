@@ -1,6 +1,6 @@
 {
-  "release": "20261115-R9-EXPERIMENTAL",
-  "status": "PUBLISHED_R9_WITH_USER_REPORTED_PERFORMANCE_PASS",
+  "release": "20261116-R9-STABLE",
+  "status": "STABLE_FROZEN_BY_DEPLOYMENT_OWNER",
   "based_on": "R8-HF2",
   "weights_included": false,
   "max_model_len": 524288,
@@ -45,5 +45,18 @@
     "bytes": 10424037078,
     "sha256": "a641c8ec0aa9775bc7a5bad23d569aada0746227304bdca6da23e63413ee86d5",
     "included_in_git": false
-  }
+  },
+  "runtime_build_id": "20261115-R9-EXPERIMENTAL",
+  "stable_since_asia_shanghai": "2026-11-16",
+  "stable_tag": "r9-stable-20261116",
+  "stable_branch": "stable/r9",
+  "runtime_source_commit": "b6b3b1c4f55a241fcf58181e3e56ef6c120a9342",
+  "maintenance_policy": {
+    "r9_runtime_frozen": true,
+    "archive_and_image_immutable": true,
+    "move_or_reuse_stable_ref": false,
+    "future_changes": "New version in an isolated directory and branch, starting with R10; do not edit the frozen R9 deployment or rewrite stable refs"
+  },
+  "promotion_basis": "Deployment owner explicitly accepted the existing R9 as the formal stable baseline; benchmark and diagnosis PASS, contamination []; no new quality/tools/512K evidence is inferred",
+  "promotion_rebuilds_runtime": false
 }

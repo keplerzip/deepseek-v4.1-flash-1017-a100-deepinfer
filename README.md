@@ -1,6 +1,8 @@
-# DeepSeek 1017 · 8×A100 · R9
+# DeepSeek 1017 · 8×A100 · R9 正式稳定版
 
-当前分支提供 **R9 源码和最新一次性能记录**。2026-11-16 目标机回传：**benchmark PASS、diagnosis PASS，污染提示 `[]`**。完成时间为北京时间 **2026-11-16 20:51:35**。
+**R9 已于 2026-11-16 由部署者确认并固化为正式稳定版。** 固定标签 [`r9-stable-20261116`](https://github.com/keplerzip/deepseek-v4.1-flash-1017-a100-deepinfer/tree/r9-stable-20261116)，稳定分支 [`stable/r9`](https://github.com/keplerzip/deepseek-v4.1-flash-1017-a100-deepinfer/tree/stable/r9)。后续更新在独立的新版本目录和分支开发，从 R10 开始；R9 的代码、配置、镜像与离线包保持冻结。见 [维护规则](docs/freeze-policy.md)。
+
+当前分支提供 **R9 稳定基线源码和最新一次性能记录**。2026-11-16 目标机回传：**benchmark PASS、diagnosis PASS，污染提示 `[]`**。完成时间为北京时间 **2026-11-16 20:51:35**。
 
 本项目面向 8 × NVIDIA A100 80 GiB（SM80），运行 DeepSeek-V4.1-Flash-1017。推理基于固定 vLLM 与 SM80 专用实现，工具协议使用官方 **deepseek-recipe 0.2.0**；它是社区部署集成，不是官方原生 DeepInfer 引擎。
 
