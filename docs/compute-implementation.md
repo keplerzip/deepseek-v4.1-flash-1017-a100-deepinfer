@@ -1,17 +1,18 @@
-# 正式版计算实现与限制
+# R9 计算实现
 
-固定基础镜像：`sha256:a63405a72ce202bb8347f17fc2432be0df484b794fba0224fd210b6daff004f6`。
-社区源码：HalfVulpes/Deepinfer-SM80 `2a828fc2122b6fc59805c0c98b6aaf78e7da9b48`。
-官方 recipe：`935817c66f5d6e64838f419692545f06787e485f`，wheel 0.2.0。
+推理运行时是固定 vLLM，主 SM80 实现来自 yaoyaoding 的 #66497。固定树 d423120cdc36d4cf8456f43ddfcc654b0c69c5ea，预编译 wheel 基线 ace415c06892a6119c88c8c57ed6fd761b722e32。它不是整体替换为官方原生 DeepInfer。
 
-`source/sm80-overlay` 是之前两项函数级补丁。`source/beta-overlay` 新增四个基于真实 R2 文件的完整生成文件、精确基线 SHA256 和可审核 diff；构建只允许覆盖对应 R2 字节，不接受不匹配的社区整文件。
+| 覆盖层 | 固定提交 | 内容 |
+|---|---|---|
+| #66792 | 1314b9e637571e2d21a68ecceab38193a6e1876a | 精确 Triton top-k/top-p、调用方与工作区预分配 |
+| #67712 | 2806929ad924d6db3ebead0352e09e088f04cc01 | prefill 元数据复用；本地适配实际 Ampere override |
+| #65282/#65283 | fe4720517d45cfc47acd81716baabf2cf1f124e1 | 显式请求优先级、抢占和 prefill 避让 |
+| HF1/HF2 | 随 source 固定 | DSpark local argmax 关闭；SM80 metadata 格式分派 |
 
-社区统一 512 维 partial kernel 保留全部 R2 调用 ABI，仍走原 split/reduce，保留融合 inverse RoPE；没有为了 direct-out 删除既有功能。社区 BF16 scale helper 在编码 0 时使用 0，本包改为位模式 64，即 2^-127；gather 的 f32 对应位模式 1<<22。全部 256 个编码按 f32 / BF16 参考验证。
+source/r9-overlay/manifest.json 记录组合补丁前后哈希及本地移植说明。source/r8-pr66497、source/r8-hf2 与 source/r7-baseline 是当前实现来源/测试依赖，不是单独的旧部署入口。原生二进制沿用固定镜像的 12 个文件，未重新替换 MoE 数值路径。
 
-Engram 依赖当前主 stream 的 hash 输入，在独立 stream 中 lookup(background=True)，记录事件，在 embed 消费前等待。staged_rows 持久保留。该路径应在目标 A100 验证 CUDA Graph 捕获和回放，CPU 测试无法证明跨 stream 正确性。
+TP8 / PP1 / DP1；EP 与 EPLB 关闭。保持 1017、NVFP4 MLA KV、MXFP4 indexer、512K 上限、C32、显存 0.94 与 DSpark k5。近似 FFN、decoder replay、SWA bounded replay、CPU KV 卸载均关闭。
 
-YOCO FFN 改写默认关闭：launcher、镜像 ENV 和 Python 回退值均为 0。该分支代码保留作研究参考，正式启动入口不允许启用。原近似方案作用于 L21–39 且非 sequence-parallel 的 eager prefill，decoder graphs、producer L20、MTP 层、短请求和无法识别的 metadata 走完整 FFN。压缩行来自每请求尾部及 checkpoint 尾部；MoE padding 临时对齐并在 finally 恢复。所有注意力和共享 KV 仍在完整坐标运行，FFN 缺省行返回零，属于数值近似。它不是完整 query compaction，也没有给近似 SWA 状态声称无损。
+优先级可通过 X-DeepInfer-Priority 提供 -100..100，低值更优先；默认全部为 0，同级请求不互相触发该优先级抢占。最多每步抢占 2 个低优先级请求，首 16 token 阶段可避让低优先级 prefill，不按输入长度自动修改优先级。
 
-默认配置保留另外五项优化，开启 prefix caching，端口 8005。`configs/runtime.json` 与原稳定项目逐键相同。正式版强制关闭近似 YOCO FFN，保持前缀缓存开启。CPU KV 使用原生 OffloadingConnector；容量及验收策略以 README 为准。`reference` 仍使用官方协议入口。完整 YOCO、adaptive MTP、DeepSelect、ZOS 均未声称已经移植。
-
-CPU/ASGI 和离线编译结果不意味着推理成功。包内 GPU A/B 脚本会对真实卡执行 MLA 数值和 graph 检查；另一个脚本覆盖前两项候选。Engram 的整模型实测通过真实模型启动与长上下文/并发测试另行判断。没有继承社区 74-SM / TP2 / PP3 / C4 的性能数字。
+采样微基准的算子加速不能视为模型整体加速。本次公开性能口径 temperature=0，没有隔离各项优化贡献。SM80 编译记录与性能回传分开保存；所有源码、排除项和许可证见 SOURCE-PROVENANCE.json、NOTICE 与 ACKNOWLEDGMENTS.md。

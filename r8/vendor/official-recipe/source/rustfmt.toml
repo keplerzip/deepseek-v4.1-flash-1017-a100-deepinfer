@@ -1,2 +1,0 @@
-# Use the same style edition in Cargo and standalone rustfmt runs.
-style_edition = "2024"

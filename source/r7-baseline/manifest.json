@@ -1,0 +1,269 @@
+{
+  "schema": 1,
+  "release": "20261110-R7-R3-COMPUTE-BASELINE",
+  "scope": "Exact original R3 Python compute files, mandatory R7 stable runtime binds",
+  "r3_image_tag": "deepseek-v4.1-flash-1017-a100-deepinfer:20261022-r3-cpukv",
+  "r3_image_id": "sha256:21827cf6e4160ec9eab4bcf51101fe636841c65e78435c389aade657a4dcd91c",
+  "verified_r5_image_id": "sha256:1edee0dd3cbcd048af56ab2d4b5c4d1065d5e7a4f7c28eaa02cafdb80a7111a9",
+  "compatible_image_ids": [
+    "sha256:1edee0dd3cbcd048af56ab2d4b5c4d1065d5e7a4f7c28eaa02cafdb80a7111a9"
+  ],
+  "created_at": "2026-11-10T04:28:25.360654+00:00",
+  "source_manifests": {
+    "source/perf-overlay/manifest.json": "1bb9bb2421a3b320d0b6cb922101b52b5a132243664438f93338c350ebea8ed5",
+    "source/fullperf-overlay/manifest.json": "01e347e2436891fae43ad8500ab1a2ea8a2eac35ba3ec96b03b42fa20da705f5"
+  },
+  "files": [
+    {
+      "path": "vllm/model_executor/layers/fused_moe/oracle/mxfp4.py",
+      "source": "files/vllm/model_executor/layers/fused_moe/oracle/mxfp4.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/fused_moe/oracle/mxfp4.py",
+      "sha256": "b7915e6779b5c88e7dcd2d227f003a8e45071d6d86877013067142d4feb64a8c",
+      "r3_sha256": "b7915e6779b5c88e7dcd2d227f003a8e45071d6d86877013067142d4feb64a8c",
+      "r5_sha256": "0081d686aa809d9dad3d2c71b9c11439fc37f80283108284aa29d422fd558e37",
+      "size": 72903,
+      "mode": 420,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/model_executor/layers/fused_moe/router/fused_topk_bias_router.py",
+      "source": "files/vllm/model_executor/layers/fused_moe/router/fused_topk_bias_router.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/fused_moe/router/fused_topk_bias_router.py",
+      "sha256": "8fdc28cc248180ad4f11bb4bcda3df47926ec12665a0d84bb712fe83fc6b9376",
+      "r3_sha256": "8fdc28cc248180ad4f11bb4bcda3df47926ec12665a0d84bb712fe83fc6b9376",
+      "r5_sha256": "074bcf62d32db6af1ae6676c583405de610c4f251541a34d91da8161ccdc06c8",
+      "size": 16163,
+      "mode": 420,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/models/deepseek_v4_1/amd/rocm.py",
+      "source": "files/vllm/models/deepseek_v4_1/amd/rocm.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v4_1/amd/rocm.py",
+      "sha256": "4bfe1fc981a1693953302fb047eb77813df562b6c44570ed76256adf8589d200",
+      "r3_sha256": "4bfe1fc981a1693953302fb047eb77813df562b6c44570ed76256adf8589d200",
+      "r5_sha256": "fb41f3e45f445db57e96b561e0229d6a415f282e4fda06c8bec1e1cb1d20dabe",
+      "size": 47070,
+      "mode": 420,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/models/deepseek_v4_1/common/engram.py",
+      "source": "files/vllm/models/deepseek_v4_1/common/engram.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v4_1/common/engram.py",
+      "sha256": "5ffb1804d65201a3351a3d8a43edcd4209367acd5e37663e9f6b978c3b393a5a",
+      "r3_sha256": "5ffb1804d65201a3351a3d8a43edcd4209367acd5e37663e9f6b978c3b393a5a",
+      "r5_sha256": "257144d5dfb8b92a7c88ebca3a08d4d1e3997289f5f7561a8392abacdf02b29b",
+      "size": 39340,
+      "mode": 436,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/models/deepseek_v4_1/nvidia/dspark.py",
+      "source": "files/vllm/models/deepseek_v4_1/nvidia/dspark.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v4_1/nvidia/dspark.py",
+      "sha256": "796db7379bcc34d31f4aebcd77abe4ea260d5201d110d8d34f4c7127cfd76c1b",
+      "r3_sha256": "796db7379bcc34d31f4aebcd77abe4ea260d5201d110d8d34f4c7127cfd76c1b",
+      "r5_sha256": "8a4be03636ac332823208c98770940892bab122bbcd6b530c2c3d1556158b4b2",
+      "size": 26481,
+      "mode": 420,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/v1/attention/backends/mla/indexer.py",
+      "source": "files/vllm/v1/attention/backends/mla/indexer.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/attention/backends/mla/indexer.py",
+      "sha256": "e19319c180ffd64c139f2e38c53acb89db34a69b88600e350c8ff7296a43d0f1",
+      "r3_sha256": "e19319c180ffd64c139f2e38c53acb89db34a69b88600e350c8ff7296a43d0f1",
+      "r5_sha256": "ed43fc7a7088cd4d3afb4f478304db8e090430524f38af4d32ba6f02f94624d0",
+      "size": 73333,
+      "mode": 420,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/v1/attention/backends/mla/sparse_swa.py",
+      "source": "files/vllm/v1/attention/backends/mla/sparse_swa.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/attention/backends/mla/sparse_swa.py",
+      "sha256": "b2a87a6a91831b7f34df4d502dd7e088f7b9b89e92e5942ccd59ef925b5b19bc",
+      "r3_sha256": "b2a87a6a91831b7f34df4d502dd7e088f7b9b89e92e5942ccd59ef925b5b19bc",
+      "r5_sha256": "7ee4af37c8f1a771a990cd4920944c74f7adbab3678faf6239424104306e3b1a",
+      "size": 50589,
+      "mode": 420,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/v1/attention/ops/rocm_aiter_mla_sparse.py",
+      "source": "files/vllm/v1/attention/ops/rocm_aiter_mla_sparse.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/attention/ops/rocm_aiter_mla_sparse.py",
+      "sha256": "b956fa0bf2bbd96608ffa1a60684295bca382416f4898a37e4eb7eb4a1046f83",
+      "r3_sha256": "b956fa0bf2bbd96608ffa1a60684295bca382416f4898a37e4eb7eb4a1046f83",
+      "r5_sha256": "e685417e82793f40db963769f8e68806fa9d6aec9d4a67556c86a1d0c27318a8",
+      "size": 166248,
+      "mode": 436,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/v1/core/kv_cache_manager.py",
+      "source": "files/vllm/v1/core/kv_cache_manager.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/core/kv_cache_manager.py",
+      "sha256": "9a80360cc77abb92db9e0d45f901dcc253847880ecb320fa76743526b733f003",
+      "r3_sha256": "9a80360cc77abb92db9e0d45f901dcc253847880ecb320fa76743526b733f003",
+      "r5_sha256": "96348c85e945f9101a9ba22bfa1282f140140cfed4bf51660a72173bd039a9fd",
+      "size": 40866,
+      "mode": 420,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/v1/core/kv_cache_utils.py",
+      "source": "files/vllm/v1/core/kv_cache_utils.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/core/kv_cache_utils.py",
+      "sha256": "5c6852b7ad7017f1acc045d229c63e0151e8a8ee1886a7462935c755ed2d14f1",
+      "r3_sha256": "5c6852b7ad7017f1acc045d229c63e0151e8a8ee1886a7462935c755ed2d14f1",
+      "r5_sha256": "8745d104a48165061ef52a70808be61f29b40b47fbad95b47e3afb22a7c5d0f2",
+      "size": 111467,
+      "mode": 420,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/v1/core/sched/scheduler.py",
+      "source": "files/vllm/v1/core/sched/scheduler.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/core/sched/scheduler.py",
+      "sha256": "d62c42b26ca6c7a12a6b24515fbe16f8973c0b1db9159dee71de573343555841",
+      "r3_sha256": "d62c42b26ca6c7a12a6b24515fbe16f8973c0b1db9159dee71de573343555841",
+      "r5_sha256": "3caa860b577c2ab1249c81ef5a8cbfe00a9ef0fd3f913cf7401cf66daa58bcb1",
+      "size": 154109,
+      "mode": 420,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/v1/worker/gpu/attn_utils.py",
+      "source": "files/vllm/v1/worker/gpu/attn_utils.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/attn_utils.py",
+      "sha256": "e91729ae69c9d53691c76aa3617bd6a5e2712811c442678a5330c48d3afc6d7e",
+      "r3_sha256": "e91729ae69c9d53691c76aa3617bd6a5e2712811c442678a5330c48d3afc6d7e",
+      "r5_sha256": "c6054f0426712610db0f17b3a125e67dd7c0bf9b720c5afdf8acf447936cc945",
+      "size": 15511,
+      "mode": 420,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/v1/worker/gpu/spec_decode/dflash/cudagraph.py",
+      "source": "files/vllm/v1/worker/gpu/spec_decode/dflash/cudagraph.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/dflash/cudagraph.py",
+      "sha256": "bd13cb2a7289b63074c8c8fe3f2a9fda15c21c5fbb76e363aba9ba0d2d77c690",
+      "r3_sha256": "bd13cb2a7289b63074c8c8fe3f2a9fda15c21c5fbb76e363aba9ba0d2d77c690",
+      "r5_sha256": "7df785867a6b60902e2477c8d16b9c1c9dd56afdb07216de2253475591dabb6d",
+      "size": 4933,
+      "mode": 420,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    },
+    {
+      "path": "vllm/v1/worker/gpu/spec_decode/dflash/speculator.py",
+      "source": "files/vllm/v1/worker/gpu/spec_decode/dflash/speculator.py",
+      "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/dflash/speculator.py",
+      "sha256": "e9a41dee1d7d6a577787674c0fc557667bf2c2716bd0a53fa969cc3b3b5e45d0",
+      "r3_sha256": "e9a41dee1d7d6a577787674c0fc557667bf2c2716bd0a53fa969cc3b3b5e45d0",
+      "r5_sha256": "51030ce1486c71628944d4b4e1774340db48f69e7eda2a7c86b22569872b208b",
+      "size": 35957,
+      "mode": 420,
+      "byte_identical_to_r3": true,
+      "differs_from_r5": true
+    }
+  ],
+  "new_helpers_not_bound": [
+    {
+      "path": "vllm/model_executor/layers/fused_moe/oracle/r5_moe_plan.py",
+      "r3_sha256": null,
+      "r5_sha256": "73a4489217416f5eb3cde96c0adfade337c825f4549f96d98a7b8e48ba75cec0",
+      "bind": false,
+      "reason": "New R5 helper; restored R3 modules never import it."
+    },
+    {
+      "path": "vllm/model_executor/layers/fused_moe/router/sm80_dsv41_router.py",
+      "r3_sha256": null,
+      "r5_sha256": "d39fad8d2a42232fed82264b53a560e9a5da275c133c8cc0018322c6beb5ea55",
+      "bind": false,
+      "reason": "New R5 helper; restored R3 modules never import it."
+    },
+    {
+      "path": "vllm/models/deepseek_v4_1/common/ops/r5_context_kv.py",
+      "r3_sha256": null,
+      "r5_sha256": "1dedf4191225489623f85fe54f34fcf1ecbd2222a25b8dcfa26ddb86bc9cdf31",
+      "bind": false,
+      "reason": "New R5 helper; restored R3 modules never import it."
+    },
+    {
+      "path": "vllm/models/deepseek_v4_1/common/r5_engram.py",
+      "r3_sha256": null,
+      "r5_sha256": "c65b1d0422b2ca6ad1365f2cf30bf888c4a1d8a9ad7569cf826a166452785faf",
+      "bind": false,
+      "reason": "New R5 helper; restored R3 modules never import it."
+    },
+    {
+      "path": "vllm/models/deepseek_v4_1/common/r5_swa.py",
+      "r3_sha256": null,
+      "r5_sha256": "5f0571660c9084c71488e2285e215cffddacbaf213356c411f2538740c647ef1",
+      "bind": false,
+      "reason": "New R5 helper; restored R3 modules never import it."
+    },
+    {
+      "path": "vllm/v1/attention/ops/r5_prefill_shardq.py",
+      "r3_sha256": null,
+      "r5_sha256": "47d772b5f55a333f67b226d9a415cb0d0c02e9ff31010f00f501260a2b5fc238",
+      "bind": false,
+      "reason": "New R5 helper; restored R3 modules never import it."
+    }
+  ],
+  "runtime_metadata": {
+    "python_r3": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+    "python_r5": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+    "package_versions": {
+      "vllm": {
+        "r3": "0.13.0",
+        "r5": "0.13.0",
+        "same": true
+      },
+      "torch": {
+        "r3": "2.13.0+cu130",
+        "r5": "2.13.0+cu130",
+        "same": true
+      },
+      "triton": {
+        "r3": "3.7.1",
+        "r5": "3.7.1",
+        "same": true
+      },
+      "nvidia-nccl-cu12": {
+        "r3": null,
+        "r5": null,
+        "same": false
+      },
+      "nvidia-nccl-cu13": {
+        "r3": "2.30.7",
+        "r5": "2.30.7",
+        "same": true
+      }
+    },
+    "r3_layers_are_r5_prefix": true,
+    "native_shared_objects": "NOT_HASHED; image ancestry and package metadata only",
+    "nccl_binary_version": "NOT_INSPECTED; package metadata may be absent"
+  },
+  "gpu_used": false,
+  "real_model_tested": false,
+  "model_or_archive_paths_read": false,
+  "image_build_or_pull": false,
+  "compatibility_note": "R7 stable package pins the exact R5 image whose 26 selected native binaries matched original R3; other historical image IDs are not qualified by this audit."
+}

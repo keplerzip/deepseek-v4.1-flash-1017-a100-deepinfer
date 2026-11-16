@@ -1,7 +1,7 @@
-"""Official, byte-identical recipe example server with a local EngineClient.
+"""Official recipe conversion/parsing with a local EngineClient and R7 guard.
 
-Only inference and checkpoint tokenizer bindings live here. Tool conversion,
-history, prompt syntax, stream parsing, accumulation and SSE are upstream code.
+Tool conversion, history, prompt syntax and stream parsing remain upstream.
+R7 adds native-ID usage and a protocol-integrity boundary around its output.
 """
 from __future__ import annotations
 
@@ -12,10 +12,14 @@ import json
 from pathlib import Path
 import sys
 import uuid
+from functools import partial
 
 import deepseek_recipe as recipe
+from anyio import CancelScope
 from fastapi import Request
 from adapter.acceptance_trace import CURRENT_TRACE, TraceStore, TraceMiddleware, active, record_output
+from adapter.stream_integrity import CURRENT_AUDIT, guarded_response_body, wrap_processor
+from adapter.request_priority import CURRENT_PRIORITY, PriorityMiddleware
 
 ROOT = Path(__file__).resolve().parents[1]
 SPECIAL = recipe.SpecialTokens(image="<｜deepseek_image｜>")
@@ -35,6 +39,10 @@ def load_official():
         recipe.ModelVersion.DeepseekV41Flash:
             lambda: recipe.DeepseekV41Encoding().with_special_tokens(SPECIAL),
     }
+    module.response_body = partial(
+        guarded_response_body, upstream_body=module.response_body,
+        request_error_type=module.RequestError,
+    )
     return module
 
 
@@ -94,9 +102,21 @@ class EngineInference:
 
     async def __call__(self, request):
         engine_input, sampling = await self.prepare(request)
+        audit = CURRENT_AUDIT.get()
+        if audit is not None:
+            audit.configure(self.tokenizer, request.conversation_request.parsing_options)
+        eos = getattr(self.engine.model_config.hf_config, "eos_token_id", None)
+        stop_ids = set(eos if isinstance(eos, (tuple, list)) else [eos])
+        stop_ids.update(self.tokenizer.encode(recipe.SpecialToken.Eos.default_str()))
         request_id = "official-beta-" + uuid.uuid4().hex
+        if audit is not None:
+            audit.engine_request_id = request_id
+            audit.prompt_tokens = len(engine_input["prompt_token_ids"])
+            audit.requested_max_tokens = request.inference_options.max_tokens
+            audit.effective_max_tokens = sampling.max_tokens
         iterator = self.engine.generate(
             engine_input, sampling, request_id,
+            priority=CURRENT_PRIORITY.get(),
             reasoning_ended=not request.conversation_request.conversation.thinking_mode,
             reasoning_parser_kwargs={"chat_template_kwargs": {
                 "thinking": request.conversation_request.conversation.thinking_mode}},
@@ -116,11 +136,13 @@ class EngineInference:
                 completion = output.outputs[0]
                 record_output(output, completion)
                 ids = list(completion.token_ids)
+                if audit is not None:
+                    audit.ingest_tokens(ids, stop_ids)
+                    if completion.finish_reason is not None:
+                        audit.backend_finish_reason = completion.finish_reason
+                        audit.backend_finished = bool(output.finished)
                 eos_count = 0
                 if completion.finish_reason == "stop" and ids:
-                    eos = getattr(self.engine.model_config.hf_config, "eos_token_id", None)
-                    stop_ids = set(eos if isinstance(eos, (tuple, list)) else [eos])
-                    stop_ids.update(self.tokenizer.encode(recipe.SpecialToken.Eos.default_str()))
                     if ids[-1] in stop_ids:
                         ids.pop()
                         eos_count = 1
@@ -144,16 +166,19 @@ class EngineInference:
                     if completion.finish_reason not in reasons or not output.finished:
                         raise RuntimeError("Engine failed: " + str(completion.finish_reason))
                     finished = True
+                    if audit is not None:
+                        audit.engine_finished = True
                     yield recipe.InferenceChunk.finish(reasons[completion.finish_reason])
                     return
             if not finished:
                 raise RuntimeError("Engine ended without a finish reason")
         finally:
-            try:
-                await iterator.aclose()
-            finally:
-                if not finished:
-                    await self.engine.abort(request_id)
+            with CancelScope(shield=True):
+                try:
+                    await iterator.aclose()
+                finally:
+                    if not finished:
+                        await self.engine.abort(request_id)
 
 
 def install_routes(app, *, engine=None, tokenizer=None):
@@ -166,6 +191,9 @@ def install_routes(app, *, engine=None, tokenizer=None):
     if not hasattr(app.state, "acceptance_traces"):
         app.state.acceptance_traces = TraceStore()
         app.add_middleware(TraceMiddleware, store=app.state.acceptance_traces)
+    if not getattr(app.state,'priority_middleware_installed',False):
+        app.add_middleware(PriorityMiddleware)
+        app.state.priority_middleware_installed=True
 
     def backend():
         if "backend" not in holder:
@@ -185,8 +213,8 @@ def install_routes(app, *, engine=None, tokenizer=None):
     # The official example uses text chunks by default. Its documented native
     # StreamProcessor supports a tokenizer; bind it to preserve incremental
     # token decoding, reasoning usage and token logprobs from our backend.
-    official.StreamProcessor = lambda generator, parsing: recipe.StreamProcessor(
-        generator, parsing, backend().tokenizer)
+    official.StreamProcessor = lambda generator, parsing: wrap_processor(recipe.StreamProcessor(
+        generator, parsing, backend().tokenizer))
     upstream_app = official.create_app(infer=infer, options=options())
     replacements = {"/v1/responses", "/v1/chat/completions", "/v1/messages",
                     "/messages", "/v1/models", "/tokenize", "/v1/messages/count_tokens",
@@ -203,11 +231,13 @@ def install_routes(app, *, engine=None, tokenizer=None):
         return {"object": "list", "data": [{"id": "DeepSeek-Flash", "object": "model", "owned_by": "local"}]}
 
     async def compatibility():
-        return {"release": "20261022-r3-cpukv", "protocol": "official-recipe-server-py",
+        return {"release": "20261115-r9-candidate", "protocol": "official-recipe-server-py+r7-integrity",
                 "recipe_version": recipe.__version__, "official_server_modified": False,
                 "tool_constraint_enforcement": "official-prompt-only",
                 "tool_execution": "client", "native_deepinfer_runtime": False,
-                "compute_profile": "aggressive-sm80", "gpu_acceptance": "NOT_RUN_AT_BUILD"}
+                "output_integrity_guard": "r7-atomic-tools-and-finish-status",
+                "token_usage": "observed-native-ids; ambiguous reasoning is unknown",
+                "compute_profile": "r9-pr66792-prefill-priority-sm80-tp8", "gpu_acceptance": "NOT_RUN_AT_BUILD"}
 
     app.add_api_route("/v1/models", models, methods=["GET"])
     app.add_api_route("/deepinfer/compatibility", compatibility, methods=["GET"])

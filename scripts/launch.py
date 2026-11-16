@@ -1,38 +1,43 @@
-"""Start the official-recipe routes using the locked TP8/C32/512K engine."""
+"""Launch R8 with original 1017 protocol and PR #66497 compute."""
 import json
 import os
 from pathlib import Path
 import sys
 
-root = Path('/opt/deepinfer')
-config = json.loads((root / 'configs/runtime.json').read_text())
-if os.environ.get('DEEPINFER_BETA_YOCO_FFN', '0') == '1':
-    raise RuntimeError('Approximate YOCO FFN is disabled in the formal CPU KV release')
-plan = json.loads(Path('/state/cpu-kv-plan.json').read_text())
-if plan['status'] != 'PASS':
-    raise RuntimeError('CPU KV memory plan did not pass')
-if plan['effective_gib']:
-    config['kv_offloading_size'] = plan['effective_gib']
-    config['kv_offloading_backend'] = 'native'
-    config['disable_hybrid_kv_cache_manager'] = False
-    config['kv_transfer_config'] = {
-        'kv_connector': 'OffloadingConnector', 'kv_role': 'kv_both',
-        'kv_connector_module_path': 'adapter.native_kv_offload',
-        'kv_connector_extra_config': {'offload_prompt_only': False,
-                                     'blocks_per_chunk': 1, 'eviction_policy': plan['eviction_policy'],
-                                     'spec_name': 'RankMajorCPUOffloadingSpec',
-                                     'spec_module_path': 'adapter.rank_major_offload'}}
-if os.environ.get('DEEPINFER_BETA_EAGER') == '1':
-    config['enforce_eager'] = True
-    config['compilation_config'] = {'mode': 0, 'cudagraph_mode': 'NONE'}
-Path('/state/effective-config.json').write_text(json.dumps(config, indent=2) + '\n')
 
-args = [sys.executable, '-m', 'adapter.official_server', '--model', config.pop('model'), '--uds', '/state/api.sock',
-        '--disable-fastapi-docs', '--no-enable-log-requests']
-for key, value in config.items():
-    flag = '--' + key.replace('_', '-')
-    if isinstance(value, bool):
-        args.append(flag if value else '--no-' + key.replace('_', '-'))
-    else:
-        args += [flag, json.dumps(value, separators=(',', ':')) if isinstance(value, (dict, list)) else str(value)]
-os.execv(sys.executable, args)
+def arguments(config, executable=None):
+    config=dict(config)
+    args=[executable or sys.executable,'-m','adapter.official_server','--model',config.pop('model'),
+          '--uds','/state/api.sock','--disable-fastapi-docs','--disable-log-requests']
+    for key,value in config.items():
+        flag='--'+key.replace('_','-')
+        if isinstance(value,bool):
+            if value:args.append(flag)
+            elif key.startswith('enable_'):args.append('--disable-'+key.removeprefix('enable_').replace('_','-'))
+            elif key.startswith('disable_'):args.append('--enable-'+key.removeprefix('disable_').replace('_','-'))
+            else:args.append('--no-'+key.replace('_','-'))
+        else:
+            args += [flag,json.dumps(value,separators=(',',':')) if isinstance(value,(dict,list)) else str(value)]
+    return args
+
+
+def main():
+    root=Path('/opt/deepinfer')
+    config=json.loads((root/'configs/runtime.json').read_text())
+    assert config['max_model_len']==524288
+    assert config['tensor_parallel_size']==8
+    assert config['pipeline_parallel_size']==config['data_parallel_size']==1
+    assert config['enable_expert_parallel'] is False
+    assert config['speculative_config']['rejection_sample_method']=='standard'
+    assert config['speculative_config']['use_local_argmax_reduction'] is False
+    assert config['kv_cache_dtype']=='nvfp4_ds_mla'
+    assert config['engram_config']['cpu_offload'] is True
+    assert config['gpu_memory_utilization']==.94
+    assert config['swa_bounded_replay'] is False
+    assert config['kv_sharing_fast_prefill'] is False
+    assert config['compilation_config']['cudagraph_decoder_replay'] is False
+    Path('/state/effective-config.json').write_text(json.dumps(config,indent=2)+'\n')
+    os.execv(sys.executable,arguments(config))
+
+
+if __name__=='__main__':main()

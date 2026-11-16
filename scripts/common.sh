@@ -2,9 +2,9 @@
 set -euo pipefail
 ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)
 STATE="$ROOT/runtime"
-ENGINE=dsv411017-deepinfer-engine
-FRONTEND=dsv411017-deepinfer-api
-OWNER=deepseek-1017-deepinfer-sm80-formal
+ENGINE=dsv411017-deepinfer-r9-engine
+FRONTEND=dsv411017-deepinfer-r9-api
+OWNER=deepseek-1017-deepinfer-sm80-r9
 BASE_IMAGE_ID=sha256:a63405a72ce202bb8347f17fc2432be0df484b794fba0224fd210b6daff004f6
 umask 077
 mkdir -p "$STATE" "$STATE/home" "$STATE/cache" "$STATE/tmp"
@@ -44,7 +44,7 @@ for group_id in $(id -G); do USER_ARGS+=(--group-add "$group_id"); done
 container_python() {
   docker run --rm --pull never --network none --read-only --tmpfs /tmp:rw,size=2g \
     "${USER_ARGS[@]}" -v "$ROOT:/package:ro" -v "$STATE:/state" \
-    --entrypoint /usr/bin/python3 "$IMAGE_ID" "$@"
+    --entrypoint /opt/r8-venv/bin/python "$IMAGE_ID" "$@"
 }
 remove_owned() {
   if docker inspect "$1" >/dev/null 2>&1; then

@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "port": 8005,
+  "api_key": "unchanged; disabled, original TCP peer ACL retained",
+  "files": [
+    {
+      "file": "scripts/policy.py",
+      "identical_to_r8_hf2": true,
+      "sha256": "8f32b8bd4aae3ed72127cbb506387c8a10b01db1d730f5664de53088d8e6fce3"
+    },
+    {
+      "file": "scripts/frontend.py",
+      "identical_to_r8_hf2": true,
+      "sha256": "4cee597fd514bf46f2c930e12b89917b036fd6d8116f7546555f2be5ecf1ec6a"
+    },
+    {
+      "file": "scripts/check_port.py",
+      "identical_to_r8_hf2": true,
+      "sha256": "5586bb6b60af7dd408bb30b9852c6e7e3fcd5bb5e75b87541789b9bb1e86a52e"
+    },
+    {
+      "file": "adapter/stream_integrity.py",
+      "identical_to_r8_hf2": true,
+      "sha256": "e74a797d769f4be50762b0a15622167769952f585750e702ca264bbd6f186b5a"
+    },
+    {
+      "file": "adapter/native_token_usage.py",
+      "identical_to_r8_hf2": true,
+      "sha256": "4b0ba292ced26c7dc33060cba1d885eafb0e558396d568ba0f513c4ed1fce96b"
+    },
+    {
+      "file": "vendor/official-recipe/source/server-py/main.py",
+      "identical_to_r8_hf2": true,
+      "sha256": "07c3c12723a2ceabc07610122b88b3f5f6e8bf6b90173c1f49e884b63936748f"
+    }
+  ],
+  "existing_r8_modified": false
+}

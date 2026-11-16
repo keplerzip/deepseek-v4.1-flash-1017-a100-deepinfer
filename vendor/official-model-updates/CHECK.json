@@ -1,0 +1,19 @@
+{
+  "checked_on_asia_shanghai": "2026-11-15",
+  "official_hf_head": "08c8657f02291e11b6f6b63e0e16014f8e748518",
+  "official_hf_modified": "2026-11-10T02:22:56.000Z",
+  "weight_release": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+  "weight_shards_compared": 48,
+  "weight_hash_differences": [],
+  "modelscope_weight_hash_differences": [],
+  "changes_since_weight_release": [
+    {
+      "path": "chat_template.jinja",
+      "old_blob": null,
+      "new_blob": "35b5c61155f2ffbf911d0c836b3e92e7b32362cb"
+    }
+  ],
+  "evidence": "Compared published LFS SHA256 and file sizes against original 1017 manifest; no weight re-download",
+  "conclusion": "WEIGHTS_UNCHANGED",
+  "keep_existing_weights": true
+}

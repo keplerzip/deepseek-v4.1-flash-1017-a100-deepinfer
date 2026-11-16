@@ -4,14 +4,14 @@ import hashlib
 from pathlib import Path
 
 
-EXCLUDED = {'dist', 'runtime', '.git', '__pycache__'}
+EXCLUDED = {'dist', 'runtime', '.git', '.build', '__pycache__'}
 
 
 def included(path, root):
     relative = path.relative_to(root)
     return (relative.parts[0] not in EXCLUDED
-            and not any(part in {'.git','__pycache__'} for part in relative.parts)
-            and path.name != 'SHA256SUMS' and path.suffix != '.pyc')
+            and '__pycache__' not in relative.parts and '.git' not in relative.parts
+            and relative.as_posix() != 'SHA256SUMS' and path.suffix != '.pyc')
 
 
 if __name__ == '__main__':

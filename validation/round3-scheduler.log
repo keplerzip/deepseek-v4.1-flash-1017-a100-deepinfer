@@ -1,0 +1,26 @@
+HOST SCOPE: real scheduler/config/request objects; CPU tensors; GPU-wheel CPU platform config validation bypassed; no GPU/model execution
+........................................................................ [ 66%]
+.....................................                                    [100%]
+=============================== warnings summary ===============================
+tests/v1/core/test_prefix_caching.py:79
+  /upstreamtests/tests/v1/core/test_prefix_caching.py:79: PytestUnknownMarkWarning: Unknown pytest.mark.cpu_test - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytestmark = pytest.mark.cpu_test
+
+tests/v1/core/test_prefix_caching.py:6476
+  /upstreamtests/tests/v1/core/test_prefix_caching.py:6476: PytestUnknownMarkWarning: Unknown pytest.mark.skip_global_cleanup - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.skip_global_cleanup
+
+tests/v1/core/test_scheduler.py:93
+  /upstreamtests/tests/v1/core/test_scheduler.py:93: PytestUnknownMarkWarning: Unknown pytest.mark.cpu_test - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytestmark = pytest.mark.cpu_test
+
+tests/v1/core/test_scheduler.py:3671
+  /upstreamtests/tests/v1/core/test_scheduler.py:3671: PytestUnknownMarkWarning: Unknown pytest.mark.skip_global_cleanup - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.skip_global_cleanup
+
+tests/v1/core/test_priority_make_room.py:60
+  /upstreamtests/tests/v1/core/test_priority_make_room.py:60: PytestUnknownMarkWarning: Unknown pytest.mark.cpu_test - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytestmark = pytest.mark.cpu_test
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+109 passed, 5 warnings in 10.34s

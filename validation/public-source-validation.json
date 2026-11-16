@@ -1,14 +1,15 @@
 {
   "status": "PASS",
-  "scope": "Public-source checks in the pre-existing pinned runtime, no GPU/model or throughput remeasurement",
-  "cpu_tests": 160,
-  "main_cpu_tests": 153,
-  "overlay_cpu_tests": 7,
-  "public_install_regressions": 2,
-  "original_hf5_cpu_tests": 158,
-  "gpu_model_remeasured_for_public_snapshot": false,
-  "target_performance_record": "target-hf5-acceptance-20261023.json",
-  "large_runtime_images_included": false,
-  "model_weights_included": false,
-  "source_snapshot": "HF5 runtime sources, sanitized benchmark records and publication-only packaging changes"
+  "scope": "R9 public source export and latest operator performance record; not a target-GPU rerun",
+  "frozen_runtime_files_matched": 40,
+  "protocol_lifecycle_cpu_tests": 78,
+  "protocol_lifecycle_result": "PASS",
+  "cpu_log_sha256": "b1f5e39ed84a6a7f28145bd8d556c4fa027c4e90de8118e4907cdf47bf9f2984",
+  "source_boundary_initial_check": "PASS",
+  "target_benchmark_status": "PASS_REPORTED",
+  "target_diagnosis_status": "PASS_REPORTED",
+  "target_contamination": [],
+  "target_raw_reports_independently_retrieved": false,
+  "old_performance_records_in_current_tree": false,
+  "offline_archive_rebuilt": false
 }

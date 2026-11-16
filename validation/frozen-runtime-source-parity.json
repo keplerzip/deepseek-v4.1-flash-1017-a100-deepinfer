@@ -1,0 +1,166 @@
+{
+  "status": "PASS",
+  "scope": "All shipped adapter/scripts/tests/config files unchanged; public-only audit/docs/metadata added separately",
+  "files": [
+    {
+      "path": "adapter/__init__.py",
+      "sha256": "5b4dfe1f244fd2984ccea9830c9f587addc991c45e84287b4ac38fe153b92ef5"
+    },
+    {
+      "path": "adapter/acceptance_trace.py",
+      "sha256": "4e6cf1bbd99f4466fc0526c8ab816562b1347796c636b8330f5898870b3a59d0"
+    },
+    {
+      "path": "adapter/native_token_usage.py",
+      "sha256": "4b0ba292ced26c7dc33060cba1d885eafb0e558396d568ba0f513c4ed1fce96b"
+    },
+    {
+      "path": "adapter/official_server.py",
+      "sha256": "2b53de689a67fa047f71ebb1ece855b36f60c9af4b7adf7c395765039903a7aa"
+    },
+    {
+      "path": "adapter/request_priority.py",
+      "sha256": "f613ac560f6c8a9ff8dab08acb673694adec23fcb88cf3882ee4159ef7520016"
+    },
+    {
+      "path": "adapter/stream_integrity.py",
+      "sha256": "e74a797d769f4be50762b0a15622167769952f585750e702ca264bbd6f186b5a"
+    },
+    {
+      "path": "scripts/check_port.py",
+      "sha256": "5586bb6b60af7dd408bb30b9852c6e7e3fcd5bb5e75b87541789b9bb1e86a52e"
+    },
+    {
+      "path": "scripts/common.sh",
+      "sha256": "0bbba3c62463ded2d407a68ed46724182b00fac0b601d084b3b7c21a5066dfea"
+    },
+    {
+      "path": "scripts/compile_r8.py",
+      "sha256": "e82efce8b2c5b182e3f4900d328be57ede4d22389521ccb23126a319c72eb9ff"
+    },
+    {
+      "path": "scripts/cpu_checks.py",
+      "sha256": "39974cce5397ae15a8137b6b3ac3a3cc453157bd2ed84381c15cb5985dfe934f"
+    },
+    {
+      "path": "scripts/frontend.py",
+      "sha256": "4cee597fd514bf46f2c930e12b89917b036fd6d8116f7546555f2be5ecf1ec6a"
+    },
+    {
+      "path": "scripts/install_r8_hotfixes.py",
+      "sha256": "d4fc2a8b2a3b5d905ac212e910ea93c1b0cd5d768325cfe51ed3fcf8fcb4d8c6"
+    },
+    {
+      "path": "scripts/install_r8_overlay.py",
+      "sha256": "ef7fb5bb212ffde50baa4178518be844450d8760ef74f78bbb513c72880538f1"
+    },
+    {
+      "path": "scripts/install_r9_overlay.py",
+      "sha256": "b1c49c38b8f4b0d8e2bef135be19bfb13b08a176cf9d35e09424327e6c5ba682"
+    },
+    {
+      "path": "scripts/launch.py",
+      "sha256": "8cb868e101d5d999d5a380b20cecbea7e34f57cb04bf0502294b5a805ef261bf"
+    },
+    {
+      "path": "scripts/live_acceptance.py",
+      "sha256": "9cd49645cca6ce9e832651dcde4f5a45679c094afec5cf692ea6ca3f9934acfb"
+    },
+    {
+      "path": "scripts/package_manifest.py",
+      "sha256": "50dc2a08f551e532ab00acf7c867fb65b27103a21cb1a940dc16213cdf19928c"
+    },
+    {
+      "path": "scripts/policy.py",
+      "sha256": "8f32b8bd4aae3ed72127cbb506387c8a10b01db1d730f5664de53088d8e6fce3"
+    },
+    {
+      "path": "scripts/probe_tools.py",
+      "sha256": "86d89945b3be8e2afec8a16e58a64bb82a1b5c870fff2b23b66f8dd663eda2a9"
+    },
+    {
+      "path": "scripts/quality_suite.py",
+      "sha256": "7250cbfb3170d223bd551e9215d1fadffbd200c28dc48953db8af857d8763cf1"
+    },
+    {
+      "path": "scripts/seal_image.py",
+      "sha256": "ef521aa26e2ca8d426739460ede1673c53f1e813fbea8aa02f4a40a56152e2a5"
+    },
+    {
+      "path": "scripts/validate_1017.py",
+      "sha256": "3866c17cecb41ebd6534538193cd09ec37bde7da27894ff9d314d67747a8839b"
+    },
+    {
+      "path": "scripts/verify_archive.py",
+      "sha256": "e72475d09902ce306ab75349b63385fcf6d3cac33510cecc190da344776493cb"
+    },
+    {
+      "path": "tests/acceptance.py",
+      "sha256": "eaeeb8cd0fbe011177fd351061177102fce4cd018ba4f6622b9936d6c7b2b58a"
+    },
+    {
+      "path": "tests/diagnose_speed.py",
+      "sha256": "09dd86367c62b5708362c55a50a0f9b92b780ae6f9deaf90773afb35db205424"
+    },
+    {
+      "path": "tests/fake_docker.py",
+      "sha256": "5e7d47c21814c858e01d6d63c8e2e7153b2603e749276d67de683634a99ffa32"
+    },
+    {
+      "path": "tests/fixtures_official.py",
+      "sha256": "2992d9ed73ba37e2cb80613b44e8900e9ce11197b3fc0909e01f78832ff0973d"
+    },
+    {
+      "path": "tests/test_hf2_metadata.py",
+      "sha256": "10e7ebf2305dd2eaa6fd4db38b0e21eb7c2174d7d5d548553ffb57715124002c"
+    },
+    {
+      "path": "tests/test_native_token_usage.py",
+      "sha256": "02c28dbc05d0a101e128b7f06f093f8beec1a668613315a95bbe606978f3efa1"
+    },
+    {
+      "path": "tests/test_official_server.py",
+      "sha256": "bdb196c9a769a35c30f4d5e5ed991827ed72bb08b2df0d3a83a854ba4c65adec"
+    },
+    {
+      "path": "tests/test_port_reuse.py",
+      "sha256": "18537aec6b4568c56942d03a1886e55f1cf9fe7341181be26e4a6b3f0fbd3286"
+    },
+    {
+      "path": "tests/test_probe_tools.py",
+      "sha256": "9b00c03eb2075a3beded3880498524ee405d5412657ef50c0e1f26f3da14c507"
+    },
+    {
+      "path": "tests/test_r7_tool_atomic.py",
+      "sha256": "d2a935c2e8fbe88ecaf7290c9c4b01d2fd3d74686d7ea033269d58d5f41686e4"
+    },
+    {
+      "path": "tests/test_r8_quality.py",
+      "sha256": "65aec14dbcf32f9bd9da433d50993bc8cc2e13629c5149b71daab537c4ba3799"
+    },
+    {
+      "path": "tests/test_r8_workflow.py",
+      "sha256": "8df813c8eb95aad9b0bff6424f86d0585c86d9e730f6665430fdf2a401c32c6a"
+    },
+    {
+      "path": "tests/test_r9_metadata.py",
+      "sha256": "286af5d3080f407ec0d49ea155eb6d7ff50080f61101b927a457bb74b915b095"
+    },
+    {
+      "path": "tests/test_r9_priority.py",
+      "sha256": "7e449378a0a91fa5130fb03fa6a8e319a421aeb50eb9154d90f4cce1a3ed8bf1"
+    },
+    {
+      "path": "tests/test_stream_finish_semantics.py",
+      "sha256": "003b0c8d753240b6930692c2fef4358c93f27c54872a210dbb2969bbbe397df9"
+    },
+    {
+      "path": "configs/r7-reference.json",
+      "sha256": "f2a402b7c27e3904eac2605f81a958ffce0f914c19fc713ca729fae3855efd2e"
+    },
+    {
+      "path": "configs/runtime.json",
+      "sha256": "ab4cdb33a031d6ce06901ccd211dfc9c6eca0f2e9b5f21a3705a02f5f963db25"
+    }
+  ]
+}

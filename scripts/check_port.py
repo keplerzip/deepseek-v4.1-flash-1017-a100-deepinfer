@@ -14,9 +14,11 @@ if __name__ == '__main__':
     try:
         for listener in load_policy(args.policy):
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sockets.append(sock)
             try:
                 sock.bind((listener.address, listener.port))
+                sock.listen(1)
             except OSError as exc:
                 if listener.kind == 'docker-bridge' and exc.errno == errno.EADDRNOTAVAIL:
                     continue

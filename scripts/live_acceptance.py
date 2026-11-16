@@ -24,6 +24,13 @@ class UnixHTTPConnection(http.client.HTTPConnection):
 
 
 def request(path, method, endpoint, body=None):
+    if str(path).startswith(('http://','https://')):
+        import urllib.request
+        raw=None if body is None else json.dumps(body).encode()
+        req=urllib.request.Request(str(path).rstrip('/')+endpoint,data=raw,method=method,
+            headers={'Content-Type':'application/json'})
+        with urllib.request.urlopen(req,timeout=1800) as response:
+            return response.read()
     connection = UnixHTTPConnection(path)
     try:
         payload = None if body is None else json.dumps(body).encode()
@@ -118,16 +125,18 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--socket', default='/state/api.sock')
     parser.add_argument('--health', action='store_true')
+    parser.add_argument('--base-url', help='Public HTTP API origin, e.g. http://127.0.0.1:8005')
     parser.add_argument('--report', type=Path)
     args = parser.parse_args()
+    target=args.base_url or args.socket
     if args.health:
-        request(args.socket, 'GET', '/health')
+        request(target, 'GET', '/health')
         return 0
     report = {'status': 'RUNNING', 'scope': 'real-model direct-UDS protocol smoke',
-              'real_model_inference': True, 'actual_app_gateway': 'NOT_RUN', 'c32': 'NOT_RUN',
+              'real_model_inference': True, 'actual_app_gateway': 'LOCAL_HTTP' if args.base_url else 'NOT_RUN', 'c32': 'NOT_RUN',
               'long_context_512k': 'NOT_RUN', 'started_epoch': time.time()}
     try:
-        report['checks'] = run(args.socket)
+        report['checks'] = run(target)
         report['status'] = 'PASS'
         code = 0
     except Exception as exc:

@@ -569,6 +569,9 @@ class Suite:
 
     def benchmark(self, mode):
         args, client = self.args, self.client
+        temperature=getattr(args,'temperature',0.0)
+        top_p=getattr(args,'top_p',1.0)
+        self.report['sampling']={'temperature':temperature,'top_p':top_p,'seed':42}
         before = settle(client)
         ledger_start = len(client.ledger)
         rows, phases = [], {}
@@ -582,7 +585,8 @@ class Suite:
                     if barrier is not None and index < CONCURRENCY:
                         barrier.wait(timeout=30)
                     result = client.chat("Benchmark " + tag + ". Explain a robust LRU cache implementation, concurrency invariants, edge cases, testing and code. Continue with detailed examples until the output limit.",
-                                         mode=mode, max_tokens=args.output_tokens, ignore_eos=True)
+                                         mode=mode, max_tokens=args.output_tokens, ignore_eos=True,
+                                         temperature=temperature,top_p=top_p)
                     row = {"phase": phase, "mode": mode, "index": index, "status": "PASS", **stream_stats(result)}
                     require(row["completion_tokens"] == args.output_tokens, "Benchmark output ended before its fixed token budget")
                     require(row["decode_tokens_per_second"] is not None, "Insufficient streamed token batches for decode timing")
@@ -885,6 +889,8 @@ def main():
     parser.add_argument("--single-samples", type=int, default=5)
     parser.add_argument("--load-requests", type=int, default=64)
     parser.add_argument("--output-tokens", type=int, default=512)
+    parser.add_argument("--temperature", type=float, default=0.0)
+    parser.add_argument("--top-p", type=float, default=1.0)
     args = parser.parse_args()
     require(not args.unix_socket or args.base_url.startswith("http://"), "Unix socket mode requires an http:// placeholder base URL")
     require(args.timeout > 0 and args.warmups >= 1 and args.single_samples >= 1, "Positive timeout, warmups and samples required")

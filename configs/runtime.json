@@ -3,25 +3,20 @@
   "served_model_name": "DeepSeek-Flash",
   "tensor_parallel_size": 8,
   "data_parallel_size": 1,
-  "enable_expert_parallel": true,
+  "enable_expert_parallel": false,
   "all2all_backend": "allgather_reducescatter",
-  "enable_eplb": true,
-  "eplb_config": {
-    "window_size": 1000,
-    "step_interval": 3000,
-    "num_redundant_experts": 0,
-    "use_async": true,
-    "log_balancedness": true,
-    "log_balancedness_interval": 500
-  },
+  "enable_eplb": false,
   "pipeline_parallel_size": 1,
   "max_model_len": 524288,
   "max_num_seqs": 32,
   "max_num_batched_tokens": 8192,
-  "gpu_memory_utilization": 0.95,
-  "kv_cache_dtype": "fp8_ds_mla",
+  "gpu_memory_utilization": 0.94,
+  "kv_cache_dtype": "nvfp4_ds_mla",
   "engram_config": {
-    "cpu_offload": true
+    "cpu_offload": true,
+    "embedding_across_dp": false,
+    "dp_shared_memory": false,
+    "use_thp": false
   },
   "enable_prefix_caching": true,
   "enable_prompt_tokens_details": true,
@@ -29,7 +24,7 @@
   "tool_call_parser": "deepseek_v41",
   "reasoning_parser": "deepseek_v41",
   "enable_auto_tool_choice": true,
-  "disable_custom_all_reduce": true,
+  "disable_custom_all_reduce": false,
   "limit_mm_per_prompt": {
     "image": 999
   },
@@ -41,7 +36,7 @@
     "num_speculative_tokens": 5,
     "draft_sample_method": "greedy",
     "rejection_sample_method": "standard",
-    "use_local_argmax_reduction": true,
+    "use_local_argmax_reduction": false,
     "enable_adaptive_verification": false
   },
   "compilation_config": {
@@ -61,6 +56,20 @@
       160,
       192
     ],
-    "max_cudagraph_capture_size": 192
-  }
+    "max_cudagraph_capture_size": 192,
+    "cudagraph_decoder_replay": false
+  },
+  "attention_config": {
+    "indexer_kv_dtype": "mxfp4"
+  },
+  "additional_config": {
+    "decode_backend": "auto",
+    "dspark_fused_markov": false
+  },
+  "swa_bounded_replay": false,
+  "kv_sharing_fast_prefill": false,
+  "scheduling_policy": "priority",
+  "max_priority_preemptions_per_step": 2,
+  "priority_prefill_budget_cap": true,
+  "priority_prefill_budget_cap_tokens": 16
 }

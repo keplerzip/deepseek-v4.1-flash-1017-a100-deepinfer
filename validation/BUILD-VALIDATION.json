@@ -1,0 +1,146 @@
+{
+  "status": "PASS_LOCAL_SCOPE_ONLY",
+  "release": "20261115-R9-EXPERIMENTAL",
+  "based_on": "R8-HF2",
+  "created_utc": "2026-11-15T16:06:00.186657+00:00",
+  "image_id": "sha256:69166b5d0f234671d732ddbd76ca2af91e321b8ca826ecedc22beb4acf13e8f9",
+  "three_rounds": [
+    {
+      "status": "PASS",
+      "round": 1,
+      "image_id": "sha256:69166b5d0f234671d732ddbd76ca2af91e321b8ca826ecedc22beb4acf13e8f9",
+      "checks": {
+        "protocol_and_lifecycle_tests": 78,
+        "priority_scheduling_tests": 109,
+        "installed_source_and_binaries": 110,
+        "native_cli_with_1017_metadata": "PASS"
+      },
+      "scope": "CPU protocol, scheduler and lifecycle; sealed source/native binaries; actual CLI only",
+      "gpu_execution": false,
+      "real_model_quality": "NOT_RUN_NO_A100",
+      "real_model_tools": "NOT_RUN_NO_A100",
+      "long_context_512k": "NOT_RUN_NO_A100",
+      "performance": "NOT_RUN_NO_A100",
+      "logs": [
+        {
+          "path": "round1-protocol.log",
+          "bytes": 21718,
+          "sha256": "98fb13d801f8515382da68e5c43aa09852708f7ec40b89b06364223693f0d680"
+        },
+        {
+          "path": "round1-scheduler.log",
+          "bytes": 2165,
+          "sha256": "3154ef07ca8109a284f1fb27bdf2e0e3532e0ce550e856f3552137cae847af98"
+        },
+        {
+          "path": "round1-cli-1017.log",
+          "bytes": 776,
+          "sha256": "acb34cca79c3ff750d708073b5477dc49974d041c1e89bf18a39bd9d33bf5f6b"
+        },
+        {
+          "path": "round1-installed-source-audit.json",
+          "bytes": 3000,
+          "sha256": "d41abe698408297aaf9c5d374f74275d122d5335efe3c3dedd4b3aa6566e1c3a"
+        }
+      ]
+    },
+    {
+      "status": "PASS",
+      "round": 2,
+      "image_id": "sha256:69166b5d0f234671d732ddbd76ca2af91e321b8ca826ecedc22beb4acf13e8f9",
+      "checks": {
+        "protocol_and_lifecycle_tests": 78,
+        "priority_scheduling_tests": 109,
+        "installed_source_and_binaries": 110,
+        "native_cli_with_1017_metadata": "PASS"
+      },
+      "scope": "CPU protocol, scheduler and lifecycle; sealed source/native binaries; actual CLI only",
+      "gpu_execution": false,
+      "real_model_quality": "NOT_RUN_NO_A100",
+      "real_model_tools": "NOT_RUN_NO_A100",
+      "long_context_512k": "NOT_RUN_NO_A100",
+      "performance": "NOT_RUN_NO_A100",
+      "logs": [
+        {
+          "path": "round2-protocol.log",
+          "bytes": 21718,
+          "sha256": "fc1f3499f3c463ff816ccf217ac039e56dd46ee68426116b59ddf4f6cf560fde"
+        },
+        {
+          "path": "round2-scheduler.log",
+          "bytes": 2164,
+          "sha256": "37c75b9e0e21873c7ae37c4d89dfa7aa973d1ce03920f5569219e5b1031e1ec9"
+        },
+        {
+          "path": "round2-cli-1017.log",
+          "bytes": 776,
+          "sha256": "3265f5568fedee17e746dfa2b032cbbb99dc588001434535e9c51b22bf88a0f6"
+        },
+        {
+          "path": "round2-installed-source-audit.json",
+          "bytes": 3000,
+          "sha256": "d41abe698408297aaf9c5d374f74275d122d5335efe3c3dedd4b3aa6566e1c3a"
+        }
+      ]
+    },
+    {
+      "status": "PASS",
+      "round": 3,
+      "image_id": "sha256:69166b5d0f234671d732ddbd76ca2af91e321b8ca826ecedc22beb4acf13e8f9",
+      "checks": {
+        "protocol_and_lifecycle_tests": 78,
+        "priority_scheduling_tests": 109,
+        "installed_source_and_binaries": 110,
+        "native_cli_with_1017_metadata": "PASS"
+      },
+      "scope": "CPU protocol, scheduler and lifecycle; sealed source/native binaries; actual CLI only",
+      "gpu_execution": false,
+      "real_model_quality": "NOT_RUN_NO_A100",
+      "real_model_tools": "NOT_RUN_NO_A100",
+      "long_context_512k": "NOT_RUN_NO_A100",
+      "performance": "NOT_RUN_NO_A100",
+      "logs": [
+        {
+          "path": "round3-protocol.log",
+          "bytes": 21718,
+          "sha256": "e60a45b914b81fc5a145bbefd010f7bc8451e966752764aa9c022c61e77de4e8"
+        },
+        {
+          "path": "round3-scheduler.log",
+          "bytes": 2165,
+          "sha256": "d1d9dad33db7e972d46e2d422d55c291ace57faeed598abf8ea6b78fd53accbe"
+        },
+        {
+          "path": "round3-cli-1017.log",
+          "bytes": 776,
+          "sha256": "9e3b4f2aa134f8ce929e742df71734d16b8f0121332d546c45dbe5624658515c"
+        },
+        {
+          "path": "round3-installed-source-audit.json",
+          "bytes": 3000,
+          "sha256": "d41abe698408297aaf9c5d374f74275d122d5335efe3c3dedd4b3aa6566e1c3a"
+        }
+      ]
+    }
+  ],
+  "saved_image_blobs": 27,
+  "saved_image_layers": 22,
+  "sm80_sampling_compile": "PASS_CROSS_COMPILE_ONLY",
+  "sm80_sampling_variants": 4,
+  "actual_gpu_execution": false,
+  "native_binaries": "12 unchanged from R8; matched each round",
+  "official_protocol": "R7 integrity/native-usage + official recipe unchanged from R8",
+  "network_authentication": "Identical source to R8; port 8005 and original ACL/authentication",
+  "startup": "Device/operator/quality/performance tests not run as startup gates",
+  "tests_api": "Remains available",
+  "weights_included": false,
+  "weights_changed": false,
+  "official_model_update": "Only chat_template.jinja added 2026-11-10",
+  "quality": "NOT_RUN_NO_A100",
+  "tools_real_model": "NOT_RUN_NO_A100",
+  "long_context_512k": "NOT_RUN_NO_A100",
+  "performance": "NOT_RUN_NO_A100",
+  "gpu_sampler_flags_test": "SKIPPED_NO_GPU; not a pass",
+  "cpu_harness_note": "Real scheduler/config/request objects with CPU tensors; bypass only GPU-wheel CPU platform configuration validation. No model weights loaded.",
+  "archive_verification": "Final SHA256/file-count/file-size check is an adjacent delivery report; no self-referential archive hash inside package."
+}

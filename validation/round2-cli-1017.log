@@ -1,0 +1,17 @@
+W1115 16:04:00.385000 1 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1115 16:04:00.385000 1 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1115 16:04:00.386000 1 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W1115 16:04:02.834000 1 torch/utils/cpp_extension.py:183] No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+{
+  "status": "PASS",
+  "scope": "Actual launch CLI + official 1017 HF metadata only",
+  "full_engine_config": "NOT_RUN_NO_GPU",
+  "gpu_executed": false,
+  "architecture": [
+    "DeepseekV41ForCausalLM"
+  ],
+  "max_model_len": 524288,
+  "tp": 8,
+  "ep": false,
+  "kv_dtype": "nvfp4_ds_mla"
+}

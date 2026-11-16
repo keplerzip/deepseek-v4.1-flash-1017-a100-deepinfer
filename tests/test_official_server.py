@@ -12,7 +12,7 @@ from fastapi import FastAPI
 import httpx
 
 from adapter.official_server import install_routes, ROOT
-from test_http import FakeTokenEngine, tokenizer_path, body, dsml, tool_schema, response_text, PATHS, parse_sse
+from fixtures_official import FakeTokenEngine, tokenizer_path, body, dsml, tool_schema, response_text, PATHS, parse_sse
 
 
 class OfficialServerTests(unittest.IsolatedAsyncioTestCase):

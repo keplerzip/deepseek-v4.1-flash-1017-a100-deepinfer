@@ -2,6 +2,9 @@
 /models/
 /images/
 /dist/
+/precompiled/
+/vendor/r8-wheels/
+/vendor/upstream-pr66497-source.tar.gz
 __pycache__/
 *.py[cod]
 .venv/
@@ -16,9 +19,3 @@ __pycache__/
 .env.*
 *.pem
 *.key
-/validation/*
-!/validation/target-hf5-acceptance-20261023.json
-!/validation/target-hf5-acceptance-20261023.user-summary.txt
-!/validation/public-source-validation.json
-!/validation/target-r8-hf2-performance-20261113.json
-!/validation/target-r8-hf2-performance-20261113.user-summary.txt

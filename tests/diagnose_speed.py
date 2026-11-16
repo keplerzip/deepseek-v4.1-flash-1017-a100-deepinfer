@@ -141,7 +141,7 @@ def graph_delta(before, after):
             "limit": "Current observer records the first replay per manager/shape. Zero new records can mean a previously seen graph. These records cannot establish replay frequency, eager fallback fraction, or kernel time."}
 
 
-def make_body(client, workload, mode, phase, index, seed, output_tokens, template=None):
+def make_body(client, workload, mode, phase, index, seed, output_tokens, template=None, temperature=0.0, top_p=1.0):
     if workload == "request":
         require(template is not None, "request workload requires --request-file")
         body = copy.deepcopy(template)
@@ -152,7 +152,7 @@ def make_body(client, workload, mode, phase, index, seed, output_tokens, templat
         body = client.body("Measurement " + tag + ". " + PROMPTS[workload])
     for key in ("max_completion_tokens", "stop", "thinking", "reasoning_effort"):
         body.pop(key, None)
-    body.update(model=client.model, n=1, max_tokens=output_tokens, temperature=0, seed=42,
+    body.update(model=client.model, n=1, max_tokens=output_tokens, temperature=temperature, top_p=top_p, seed=42,
                 ignore_eos=True, stream=True, return_token_ids=True, include_reasoning=True)
     body["stream_options"] = {**(body.get("stream_options") or {}), "include_usage": True}
     body.pop("chat_template_kwargs", None)
@@ -262,6 +262,7 @@ def run(args):
         "timing_method": "Raw EngineClient IDs, official usage and global counters must match including reasoning. Native counts at unchanged SSE body byte offsets are bound to client receipt/parser times. Decode and TTFT use client token-batch arrivals including HTTP/parser overhead as before. first_visible_seconds is first visible text/reasoning delta. Official SSE batching can differ; no strict cross-version speedup is claimed.",
         "workloads": workloads, "modes": args.modes, "warmups_per_case": args.warmups,
         "samples_per_case": args.samples, "output_tokens": args.output_tokens, "seed": args.seed,
+        "sampling": {"temperature":getattr(args,'temperature',0.0),"top_p":getattr(args,'top_p',1.0),"seed":42},
         "request_file_sha256": hashlib.sha256(args.request_file.read_bytes()).hexdigest() if args.request_file else None,
         "request_file_policy": "Original messages, images and tools retained; repeated private request shares prefix cache, reported cached_tokens must be inspected. Only measurement generation/stream/thinking controls are replaced. No prompt or response text is saved.",
         "expected_draft_k": args.expected_draft_k, "expect_dspark": args.expect_dspark,
@@ -280,7 +281,8 @@ def run(args):
                     for index in range(count):
                         name = "%s-%s-%s-%03d" % (workload, mode, phase, index)
                         print("START " + name, flush=True)
-                        body = make_body(client, workload, mode, phase, index, args.seed, args.output_tokens, template)
+                        body = make_body(client, workload, mode, phase, index, args.seed, args.output_tokens, template,
+                                         getattr(args,'temperature',0.0),getattr(args,'top_p',1.0))
                         row = {"workload": workload, "mode": mode, "phase": phase, "index": index,
                                "request_sha256": digest(body), "status": "FAIL", "timing_valid": False,
                                "started_at": utc_now()}
@@ -342,6 +344,8 @@ def main():
     parser.add_argument("--samples", type=int, default=5)
     parser.add_argument("--warmups", type=int, default=1)
     parser.add_argument("--output-tokens", type=int, default=1024)
+    parser.add_argument("--temperature", type=float, default=0.0)
+    parser.add_argument("--top-p", type=float, default=1.0)
     parser.add_argument("--seed", default="a100-speed-diagnosis-v1")
     parser.add_argument("--expected-draft-k", type=int, default=5)
     parser.add_argument("--expect-dspark", action=argparse.BooleanOptionalAction, default=True)

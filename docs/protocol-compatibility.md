@@ -1,13 +1,11 @@
-# 正式版官方协议入口
+# R9 官方协议与连接
 
-默认入口改为 `adapter/official_server.py`。官方 `server-py/main.py` 原样保存，全部协议 handlers、转换、prompt rendering、stream parsing、SSE framing 和 accumulator 均来自官方固定源码，出处与 SHA256 在 `vendor/official-recipe/provenance.json`。
+官方 deepseek-recipe 0.2.0 负责请求转换、消息编码和输出解析，固定源码提交 935817c66f5d6e64838f419692545f06787e485f。vendor/official-recipe/source/server-py/main.py 保留上游原字节。
 
-本地代码只注入 EngineClient inference、1017 tokenizer / image spelling、原生视觉展开和后端资源清理。没有调用旧版 ProtocolStream、工具参数校验/修复或自写 strict DSML grammar。官方 ConversionOptions 的 reasoning 默认行为 FillEmpty 保持原样。
+提供 /v1/responses、/v1/chat/completions、/v1/messages、/v1/models，以及现有工具和多模态请求转换。API 模型名 DeepSeek-Flash，默认入口 http://127.0.0.1:8005/v1；沿用 Docker 网桥来源策略。当前默认 API key 关闭，TCP peer ACL 保留，不改为全网卡监听。
 
-工具 strict / required / named 采用官方 prompt 和 parser；官方公开库没有约束采样器，工具输出不获得强制 schema 保证。JSON/regex 文本约束接入 vLLM；服务端工具执行、搜索数据与云端在线服务能力不包含在本包。
+工具定义与参数沿用官方 prompt/parser；没有本地 DSML 逐 token 硬语法，也没有服务端执行工具。R7 完整性边界继续处理不完整工具输出、finish 状态与原生 token usage。错误不会通过删除尾部字符伪装成正确调用。
 
-实际默认入口的 CPU ASGI 检查覆盖三协议 JSON/SSE、工具回传、namespace、custom apply_patch、客户端 tool_search、strict 参数 schema、图片 token、取消/后端清理和官方错误响应。测试输出由 FakeTokenEngine 提供，不代表模型推理质量验收。
+R9 只在协议入口增加可选的请求优先级 header，转发到 EngineClient；不重写正文、工具参数或官方 SSE 数据。默认优先级为 0，客户端保持既有连接方式即可。
 
-`adapter/protocol.py`、`backend.py`、`constraints.py` 和 `server.py` 作为旧包参考及回归测试保留，默认启动完全不导入这些模块。旧版测试日志属于参考路径，不能冒充官方默认入口的全部验证。
-
-正式版新增启动验收专用的 GPU-only 前缀重置接口；只在 runtime/cache-acceptance-active 存在时可调用，正式发布 API 前关闭，用于验证 CPU KV 真实回载，不改动官方协议 handlers。
+性能脚本临时开启 trace 证据接口用于计数，不关闭或隔离外部 API。本次 benchmark/diagnosis PASS 不是独立的工具成功率报告；本次回传未提供协议、视觉和实际 512K 的完整验收结果。

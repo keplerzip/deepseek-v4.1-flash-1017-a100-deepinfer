@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "round": 3,
+  "image_id": "sha256:69166b5d0f234671d732ddbd76ca2af91e321b8ca826ecedc22beb4acf13e8f9",
+  "checks": {
+    "protocol_and_lifecycle_tests": 78,
+    "priority_scheduling_tests": 109,
+    "installed_source_and_binaries": 110,
+    "native_cli_with_1017_metadata": "PASS"
+  },
+  "scope": "CPU protocol, scheduler and lifecycle; sealed source/native binaries; actual CLI only",
+  "gpu_execution": false,
+  "real_model_quality": "NOT_RUN_NO_A100",
+  "real_model_tools": "NOT_RUN_NO_A100",
+  "long_context_512k": "NOT_RUN_NO_A100",
+  "performance": "NOT_RUN_NO_A100",
+  "logs": [
+    {
+      "path": "round3-protocol.log",
+      "bytes": 21718,
+      "sha256": "e60a45b914b81fc5a145bbefd010f7bc8451e966752764aa9c022c61e77de4e8"
+    },
+    {
+      "path": "round3-scheduler.log",
+      "bytes": 2165,
+      "sha256": "d1d9dad33db7e972d46e2d422d55c291ace57faeed598abf8ea6b78fd53accbe"
+    },
+    {
+      "path": "round3-cli-1017.log",
+      "bytes": 776,
+      "sha256": "9e3b4f2aa134f8ce929e742df71734d16b8f0121332d546c45dbe5624658515c"
+    },
+    {
+      "path": "round3-installed-source-audit.json",
+      "bytes": 3000,
+      "sha256": "d41abe698408297aaf9c5d374f74275d122d5335efe3c3dedd4b3aa6566e1c3a"
+    }
+  ]
+}

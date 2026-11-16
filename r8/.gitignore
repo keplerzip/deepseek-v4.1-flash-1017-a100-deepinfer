@@ -1,9 +1,0 @@
-/runtime/
-/models/
-/images/
-/dist/
-/vendor/r8-wheels/
-/vendor/upstream-pr66497-source.tar.gz
-/precompiled/
-__pycache__/
-*.py[cod]

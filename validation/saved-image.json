@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "image_tag": "deepseek-v4.1-flash-1017-a100-deepinfer:20261115-r9",
+  "build_image_id": "sha256:69166b5d0f234671d732ddbd76ca2af91e321b8ca826ecedc22beb4acf13e8f9",
+  "accepted_image_ids": [
+    "sha256:455b64ede2ce8c3ff7b53b4e0cc717fb2c152e2a7b0d52fdbe17a50c144d5b73",
+    "sha256:54faaf3d42e5e0b01ac29e3dcee8dabc57244420548a56b2a52e198afb3baa8c",
+    "sha256:69166b5d0f234671d732ddbd76ca2af91e321b8ca826ecedc22beb4acf13e8f9"
+  ],
+  "verified_blobs": 27,
+  "verified_blob_bytes": 6244508390,
+  "layers": 22,
+  "archive_bytes": 6244535296,
+  "weights_included": false
+}

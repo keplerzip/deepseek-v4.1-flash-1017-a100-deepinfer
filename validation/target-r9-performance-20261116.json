@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "record_kind": "user_reported_target_gpu_performance",
+  "release": "DeepSeek 1017 A100 R9",
+  "benchmark_status": "PASS",
+  "diagnosis_status": "PASS",
+  "contamination": [],
+  "benchmark_finished_at_utc": "2026-11-16T12:51:35.332854+00:00",
+  "benchmark_finished_at_asia_shanghai": "2026-11-16T20:51:35.332854+08:00",
+  "source": {
+    "kind": "Deployment operator pasted final summary in conversation",
+    "summary_path": "validation/target-r9-performance-20261116.user-summary.txt",
+    "summary_sha256": "5875efb4510e3922700043f2f315feb72bd35624dee5f6e774b8e470f4a6b773",
+    "raw_target_reports_independently_retrieved": false,
+    "target_effective_config_independently_retrieved": false,
+    "summary_whitespace_normalized": true
+  },
+  "deployment_context": {
+    "hardware": "8 x NVIDIA A100 80 GiB / SM80",
+    "model": "DeepSeek-V4.1-Flash-1017",
+    "tensor_parallel_size": 8,
+    "pipeline_parallel_size": 1,
+    "data_parallel_size": 1,
+    "expert_parallel_enabled": false,
+    "max_model_len": 524288,
+    "max_num_seqs": 32,
+    "gpu_memory_utilization": 0.94,
+    "kv_cache_dtype": "nvfp4_ds_mla",
+    "indexer_kv_dtype": "mxfp4",
+    "cpu_kv_offload": false,
+    "engram_parameter_cpu_offload": true,
+    "dspark_k": 5,
+    "port": 8005,
+    "tool_protocol": "official deepseek-recipe 0.2.0 + R7 integrity boundary",
+    "configuration_source": "Shipped R9 configuration and the documented performance.sh command; target effective configuration was not independently retrieved"
+  },
+  "measurement_parameters_from_shipped_script": {
+    "modes": [
+      "off",
+      "high"
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "seed": 42,
+    "warmups_per_mode": 2,
+    "single_samples_per_mode": 10,
+    "c32_concurrency": 32,
+    "c32_requests_per_mode": 128,
+    "output_tokens_per_request": 1024,
+    "diagnosis_warmups_per_case": 2,
+    "diagnosis_samples_per_case": 10,
+    "api_remained_available": true,
+    "operator_checks": false
+  },
+  "benchmarks": {
+    "off": {
+      "single_decode_tokens_per_second_median": 363.73,
+      "single_ttft_seconds_median": 0.2,
+      "c32_aggregate_tokens_per_second": 2253.57,
+      "c32_latency_p95_seconds": 16.69
+    },
+    "high": {
+      "single_decode_tokens_per_second_median": 271.61,
+      "single_ttft_seconds_median": 0.2,
+      "c32_aggregate_tokens_per_second": 1841.59,
+      "c32_latency_p95_seconds": 19.71
+    }
+  },
+  "diagnosis_summary": null,
+  "diagnosis_details_provided": false,
+  "qualification": {
+    "performance": "PASS_REPORTED_BY_DEPLOYMENT_OPERATOR",
+    "accounting_contamination": "NONE_REPORTED",
+    "full_run_status_json": "NOT_PROVIDED",
+    "model_quality": "NOT_PROVIDED_IN_THIS_SUMMARY",
+    "tool_call_correctness": "NOT_PROVIDED_IN_THIS_SUMMARY",
+    "actual_512k_inference": "NOT_PROVIDED_IN_THIS_SUMMARY",
+    "simultaneous_c32_full_512k_residency": "NOT_ESTABLISHED"
+  },
+  "scope": "Latest R9 performance summary only; no previous-version comparison or broad quality claim"
+}

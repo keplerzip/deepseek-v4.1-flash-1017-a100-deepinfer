@@ -1,0 +1,7 @@
+W1115 15:53:20.927000 1 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1115 15:53:20.928000 1 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1115 15:53:20.928000 1 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+{"kernel": "_levels_kernel", "vocab": 129280, "target": "sm_80", "seconds": 0.3520194990001073, "shared_bytes": 1024, "registers": null, "cubin_sha256": "5850b0b13bcd368fbd220589b2d2780d17802f7ef97dc19481fe86932a776c89"}
+{"kernel": "_filter_kernel", "vocab": 129280, "target": "sm_80", "seconds": 15.072646155999792, "shared_bytes": 32768, "registers": null, "cubin_sha256": "1412093f69578e53d8a737b30f9323eb74f6ac6a9c2bc3dbdeb745b0662ce94d"}
+{"kernel": "_levels_kernel", "vocab": 129281, "target": "sm_80", "seconds": 0.0011493410002003657, "shared_bytes": 1024, "registers": null, "cubin_sha256": "5850b0b13bcd368fbd220589b2d2780d17802f7ef97dc19481fe86932a776c89"}
+{"kernel": "_filter_kernel", "vocab": 129281, "target": "sm_80", "seconds": 0.004863045999627502, "shared_bytes": 32768, "registers": null, "cubin_sha256": "1412093f69578e53d8a737b30f9323eb74f6ac6a9c2bc3dbdeb745b0662ce94d"}

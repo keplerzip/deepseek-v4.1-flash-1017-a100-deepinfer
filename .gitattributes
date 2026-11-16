@@ -1,4 +1,6 @@
-# Preserve byte-exact upstream files and SHA256SUMS on every platform.
 * -text
 *.whl binary
 vendor/** linguist-vendored
+# Keep exact upstream snapshot whitespace for provenance.
+source/** -whitespace
+vendor/** -whitespace

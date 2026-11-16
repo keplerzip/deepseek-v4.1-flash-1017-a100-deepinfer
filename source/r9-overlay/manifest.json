@@ -1,0 +1,181 @@
+{
+  "release": "20261115-R9",
+  "base": "R8-HF2",
+  "runtime_base_image": "sha256:0bf1394f4a736530656d5c365811a08c7034de72e9b211834e6b8299909e6ca7",
+  "base_upstream": "d423120cdc36d4cf8456f43ddfcc654b0c69c5ea",
+  "changes": [
+    "66792 exact topk/topp and workspace reservation",
+    "67712 shared prefill metadata + Ampere adaptation",
+    "65282/65283 priority scheduling backport",
+    "R8 HF1/HF2 retained"
+  ],
+  "files": [
+    {
+      "path": "vllm/engine/arg_utils.py",
+      "kind": "runtime",
+      "before_sha256": "f29de7c7b309aca662dd31a02adb23c53596935809d013d10daebd6f7660427c",
+      "sha256": "02fcaa0c09aca080a0b67981ee65b1d79b1480baf7ba0eb9820758009a82abf4",
+      "size": 145274
+    },
+    {
+      "path": "vllm/config/scheduler.py",
+      "kind": "runtime",
+      "before_sha256": "229f89a803226ec8da19b44f5f5dfcb0472712a8c90c3c297459fc2269349e96",
+      "sha256": "607f20b93bf9b3300b89a7e108aba31bd276fd27f8d2502e50d37a3d876bba8e",
+      "size": 21749
+    },
+    {
+      "path": "vllm/model_executor/models/diffusion_gemma.py",
+      "kind": "runtime",
+      "before_sha256": "e0307298956719607ba953b18b2b1b9e72aa0c8328ff441f8ead3cd1abb37dc3",
+      "sha256": "c751730ea3b5cdba1a7d9c9d9aa0ab828aa18e897a47132a852aa0441249b157",
+      "size": 83533
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/specialized_decode/ampere/indexer_metadata.py",
+      "kind": "runtime",
+      "before_sha256": "7d6f40e6d8e6c9438817d9d800c7a51c1430d4eacfba6de91fbc699b9882d685",
+      "sha256": "24b23a345ef9cd236b533ff6ff274e890a70d8cea40fd79d647f3e39cab6378f",
+      "size": 12350
+    },
+    {
+      "path": "vllm/v1/metrics/stats.py",
+      "kind": "runtime",
+      "before_sha256": "7ffc0adf10ef5ac402674c8c13ef8058358bb0c950bf363776506f6c85203e90",
+      "sha256": "54da091245924a2c8f6c5c608870cbac1aa238ad5624a8d4f67a0e81d097bafa",
+      "size": 25786
+    },
+    {
+      "path": "vllm/v1/metrics/loggers.py",
+      "kind": "runtime",
+      "before_sha256": "1406f3bb56279ea00425c677389d796dde0f6b869ba142415b65bc96a5208a0b",
+      "sha256": "7525eb59cc33579567ab1cbbe7e79c712f8987fe488f2e64beb8d67c1df48416",
+      "size": 62049
+    },
+    {
+      "path": "vllm/v1/watermarking/gpu_sampler.py",
+      "kind": "runtime",
+      "before_sha256": "95617b2347be968bfb0864ef67f7e3f09fd9b156b1f1b5c401f4cd748d805d8d",
+      "sha256": "0f7dba59a0d38b6ace971f88e85e6c6fa79292690152829eec6e9a50d25a77a2",
+      "size": 7761
+    },
+    {
+      "path": "vllm/v1/attention/backends/mla/indexer.py",
+      "kind": "runtime",
+      "before_sha256": "2c21e5d414c0c5b04ece8adf96168888da28196aa7e8236a37d50e15a826870e",
+      "sha256": "f1e964dda912ad43a1d221944b8419cb1bd389639ce513eb0ac48daa91ba9a66",
+      "size": 88324
+    },
+    {
+      "path": "vllm/v1/worker/gpu/model_runner.py",
+      "kind": "runtime",
+      "before_sha256": "452cb52bf1d1d2d8c8d32a0770c8719eff9076c4e1e602ee0f22985baafe7c5f",
+      "sha256": "e6d449fe8e8870e3a1933b372df37e65d699b93217b0787ff9db1d371cd8a381",
+      "size": 116377
+    },
+    {
+      "path": "vllm/v1/worker/cpu/sampler.py",
+      "kind": "runtime",
+      "before_sha256": "b95054364fc9ecf188556bd9325721d05ed4683982c07af79708028121ed6f15",
+      "sha256": "7607c44e82aee068ee648cd822d7790b61c60721e5dd9b07432ff9518adea3af",
+      "size": 36777
+    },
+    {
+      "path": "vllm/v1/worker/gpu/sample/sampler.py",
+      "kind": "runtime",
+      "before_sha256": "984b334c4d996550481d9bae4d9ccd57b3c208ad3fe1579d9c9f794e0be58b40",
+      "sha256": "c50478df49c67ce4fd761ed9fa2b5285757daa1c4696991d8d12ba2073a7858a",
+      "size": 14312
+    },
+    {
+      "path": "vllm/v1/worker/gpu/sample/states.py",
+      "kind": "runtime",
+      "before_sha256": "59099c6053c45b8299235eb4777a6427920cc5ca38ab3bedcc44fc6da85e83b4",
+      "sha256": "e4d07f9b845d76026dbf5f80caf61ea1fe5fdbfad082b79f49f685be39721e4c",
+      "size": 5517
+    },
+    {
+      "path": "vllm/v1/core/sched/request_queue.py",
+      "kind": "runtime",
+      "before_sha256": "db8d25daf9580d581f18c6b631a6576dfaa7d1474398cd8dc4db1d29745c214d",
+      "sha256": "6a1d797e0fdcc8468d98b96ff8b42520a308cdffc64e420d6ab6f2c7c10275ff",
+      "size": 7606
+    },
+    {
+      "path": "vllm/v1/core/sched/scheduler.py",
+      "kind": "runtime",
+      "before_sha256": "7dada16d9fe3e72a00da95dd4949c3b705d47b58056077fa0defd582ea593a45",
+      "sha256": "7378b8920d8e0805aeb8b038d2f3eba5394b39d94d40d7a155847e6f583e2c66",
+      "size": 214474
+    },
+    {
+      "path": "vllm/v1/sample/ops/topk_topp_sampler.py",
+      "kind": "runtime",
+      "before_sha256": "691d6eb6afa9c4b482422b2620c6129aa8723951351ac440915e536c2e2417d2",
+      "sha256": "8ad84cd1b47af16d8a11bb07ddc741265ffc6b9486ff2632dfafedd6c0a68516",
+      "size": 12215
+    },
+    {
+      "path": "tests/watermarking/test_watermarking.py",
+      "kind": "test",
+      "before_sha256": "572222c00c84018ba4e7484150698077dbbf9cdbeac3aaa4fce1c86c81d8828c",
+      "sha256": "9661d021125e271bd74d484d9b3608dbb55fdd3d315165250610a3d755a13d0e",
+      "size": 70413
+    },
+    {
+      "path": "tests/v1/attention/test_indexer_dcp_localize.py",
+      "kind": "test",
+      "before_sha256": "3e5a3a3cbd5ea5460b7a2362dacc8ba6152e6d8bf5e349a83dad737a7172aeaf",
+      "sha256": "9d6aebe1ae2e18d7c3dcb3bd1850080915cce8ec91e79aab5c11320ac491588b",
+      "size": 43262
+    },
+    {
+      "path": "tests/v1/worker/test_gpu_sampler_flags.py",
+      "kind": "test",
+      "before_sha256": "001b58dfad59ec90b05d286d53eed3794daf3aa175b326309fbe356044b73557",
+      "sha256": "8b141420e86ff2f6961d858ecaf3e2dd7680de6e61d04109ca55c6855a5a68e5",
+      "size": 4479
+    },
+    {
+      "path": "tests/v1/core/utils.py",
+      "kind": "test",
+      "before_sha256": "df2c91fc052432bbb73f7dc894dd1bc46d553f89868b677d9a711682a20d23b5",
+      "sha256": "2e0ec297a0a179bbd5b3277c65d7df136de58af1e7b17dd535797c0858234996",
+      "size": 15420
+    },
+    {
+      "path": "tests/v1/core/test_priority_make_room.py",
+      "kind": "test",
+      "before_sha256": null,
+      "sha256": "871a609466c8b23c8ec5c72e829154adec974abb1ea4c7f157c8fd2213c3fbd4",
+      "size": 110184
+    },
+    {
+      "path": "tests/v1/sample/test_topk_topp_sampler.py",
+      "kind": "test",
+      "before_sha256": "3b4e35463a908e235ea49ee9c890e710afab8cb0cde1a765160474322f424e02",
+      "sha256": "7e6e3c51d32f8dd343b3ebbc1b1bf3ee9845708a10eef3fc34026afb92721633",
+      "size": 58983
+    },
+    {
+      "path": "benchmarks/benchmark_topk_topp.py",
+      "kind": "benchmark",
+      "before_sha256": "bfae9c62789c89d7f394073b0af35f6240408ffa9ee0a4fba60261f2e0214e31",
+      "sha256": "f755cd41c9cc5422b3aa819d75503e0878635d5b6a84a293ad64468ac9606aed",
+      "size": 17663
+    },
+    {
+      "path": "vllm/v1/sample/ops/topk_topp_triton.py",
+      "kind": "runtime",
+      "before_sha256": "6264a524884274824b65c3a3a91d4d34418561cde566c31879cb394acd85f2ef",
+      "sha256": "e7d2276e9dfd979db3cf7f3574342ab02e5a27a61b2b0b4d0263b5b4668cc74d",
+      "size": 60620
+    }
+  ],
+  "backport_notes": [
+    "R8 scheduler receives throttle_prefills from EngineCore, so test supplies that public argument instead of assuming cadence inside schedule().",
+    "Synchronous SWA fixture explicitly disables async mode; default auto resolved True under GPU-wheel CPU config bypass. All assertions retained.",
+    "HF2 format dispatch kept; #67712 reuse adapted to Ampere _build_prefill override.",
+    "Oversized #66792 kernel patch fetched as full pinned source; exact file identity verified."
+  ]
+}
